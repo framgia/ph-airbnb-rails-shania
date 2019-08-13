@@ -41,10 +41,13 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'devise', '~> 4.2'
 gem 'jquery-rails'
 gem 'toastr-rails'
-gem 'autoprefixer-rails'
 
 # Font Awesome
 gem 'font-awesome-rails'
+
+# Require to run docker-compose exec web for Mailgun and updated Bootstrap
+gem 'autoprefixer-rails'
+gem 'popper_js', '1.14.5'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
