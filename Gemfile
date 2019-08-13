@@ -6,7 +6,8 @@ ruby '2.5.1'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.3'
 # Use bootstrap-sass to make all the necessary Bootstrap files available to the current application
-gem 'bootstrap-sass', '3.3.7'
+gem 'sprockets-rails', :require => 'sprockets/railtie'
+gem 'bootstrap', '~> 4.3.1'
 # Use mysql as the database for Active Record
 gem 'mysql2', '>= 0.4.4', '< 0.6.0'
 # Use Puma as the app server
@@ -16,7 +17,7 @@ gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
-# gem 'mini_racer', platforms: :ruby
+gem 'mini_racer', platforms: :ruby
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
@@ -40,6 +41,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'devise', '~> 4.2'
 gem 'jquery-rails'
 gem 'toastr-rails'
+gem "autoprefixer-rails"
 
 
 group :development, :test do
