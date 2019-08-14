@@ -8,7 +8,7 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     address: 'smtp.mailgun.org',
     port: 587,
-    domain: 'POKEHOST',
+    domain: Rails.application.credentials.mailgun[:domain_name],
     authentication: 'plain',
     user_name: Rails.application.credentials.mailgun[:username],
     password: Rails.application.credentials.mailgun[:default_password]
