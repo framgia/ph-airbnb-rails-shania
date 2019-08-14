@@ -1,4 +1,8 @@
 Rails.application.configure do
+  
+  # Link to as Host
+  config.action_mailer.default_url_options = { :host => "localhost:3002" }
+
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.

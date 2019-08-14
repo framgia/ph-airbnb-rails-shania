@@ -1,5 +1,18 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
+ 
+  # Link to as Host
+  config.action_mailer.default_url_options = { :host => "localhost", :port => "3002" }
+
+  # Mailgun
+  config.action_mailer.smtp_settings = {
+    address: 'smtp.mailgun.org',
+    port: 587,
+    domain: 'POKEHOST',
+    authentication: 'plain',
+    user_name: Rails.application.production.mailgun[username],
+    password: Rails.application.production.mailgun[default_password]
+  }
 
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development
