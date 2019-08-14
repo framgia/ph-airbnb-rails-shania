@@ -10,8 +10,8 @@ Rails.application.configure do
     port: 587,
     domain: 'POKEHOST',
     authentication: 'plain',
-    user_name: Rails.application.production.mailgun[username],
-    password: Rails.application.production.mailgun[default_password]
+    user_name: Rails.application.credentials.mailgun[:username],
+    password: Rails.application.credentials.mailgun[:default_password]
   }
 
   # In the development environment your application's code is reloaded on
