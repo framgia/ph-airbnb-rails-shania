@@ -1,27 +1,36 @@
-<header class = "navbar navbar-fixed-top navbar-inverse">
-    <div class = "container">
-        <%= link_to "PokeHost", root_path, id: "logo" %>
-        <nav>
-            <ul class = "nav navbar-nav navbar-right">
-                <% if user_signed_in? %>
-                    <li class = "dropdown">
-                        <a href = "#" class = "dropdown-toggle" data-toggle = "dropdown">
-                            <%= current_user.name %> <b class = "caret"></b>
-                        </a>
-                        <ul class = "dropdown-menu">
-                            <li><%= link_to "Profile", current_user %></li>
-                            <li class = "divider"></li>
-                            <li><%= link_to "Edit Profile", '#' %></li>
-                            <li>
-                                <%= link_to "Log out", destroy_user_session_path, :method => :delete %>
-                            </li>
-                        </ul>
-                    </li>
-                <% else %>
-                    <li><%= link_to "Login", new_user_session_path %></li>
-                    <li><%= link_to "Signup", new_user_registration_path %></li>
-                <% end %>
-            </ul>
-        </nav>
-    </div>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
+        <div class="container"><%= link_to "PokeHost", root_path, class: "navbar-brand" %>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <form class="form-inline mt-2 mt-md-0">
+                    <input class="form-control mr-sm-2" type="text" placeholder="Where are you going?" aria-label="Search">
+                </form>
+                <ul class="navbar-nav ml-auto">
+                    <% if user_signed_in? %>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle mr-4" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <%= current_user.name %> <b class="caret"></b>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdown01">
+                            <%= link_to "Profile", current_user, class: "dropdown-item" %>
+                            <div class="dropdown-divider"></div>
+                            <%= link_to "Edit Profile", edit_user_registration_path, class: "dropdown-item" %>
+                            <%= link_to "Log out", destroy_user_session_path, class:"dropdown-item", :method => :delete %>
+                            </div>
+                        </li>
+                    <% else %>
+                        <li>
+                            <%= link_to "Login", new_user_session_path, class: "nav-link" %>
+                        </li>
+                        <li>
+                            <%= link_to "Signup", new_user_registration_path, class: "nav-link" %>
+                        </li>
+                    <% end %>
+                </ul>
+            </div>
+        </div>
+    </nav>
 </header>

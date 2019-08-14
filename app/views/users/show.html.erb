@@ -1,11 +1,36 @@
 <% provide(:title, @user.name) %>
-<div class="row">
-    <aside class="col-md-4">
-        <section class="user_info">
-            <h1>
-                <%= gravatar_for @user %>
-                <%= @user.name %>
-            </h1>
-        </section>
-    </aside>
+<div class="row pt-4">
+    <div class="col-lg-3">
+        <div class="text-center">
+            <%= gravatar_for @user, size:"250" %>
+        </div>
+        <div class="card">
+            <div class="card-header profile-verified">
+                Verification
+            </div>
+            <div class="card-body">
+                <ul class="sidebar-list">
+                    <div class="row">
+                        <div class="col-12">
+                            <% if @user.email? %>
+                                <li>
+                                    Email address<span class="pull-right"><i class="fa fa-check-circle" style="font-size:24px;color:black"></i></span>
+                                </li>
+                            <% end %>
+                        </div>
+                        <div class="col-12">
+                            <% if @user.phonenumber? %>
+                                <li>
+                                    Phone number<span class="pull-right"><i class="fa fa-check-circle" style="font-size:24px;color:black"></i></span>
+                                </li>
+                            <% end %>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-9">
+        <h2><%= @user.name %></h2>
+    </div>
 </div>
