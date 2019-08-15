@@ -3,11 +3,7 @@
     <div class="col-lg-3">
         <div class="text-center">
             <div class="text-center">
-                <% if @user.image? %>
-                    <%= image_tag "http://graph.facebook.com/v2.10/#{@user.uid}/picture?type=large", class: "full-image" %>
-                <% else %>
-                        <%= gravatar_for(@user, size: "250") %>
-                <% end %>
+                <%= profile_picture(@user, size: "250") %>
             </div>
         </div>
         <div class="card">

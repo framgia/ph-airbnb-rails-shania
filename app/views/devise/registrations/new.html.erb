@@ -26,6 +26,12 @@
             <div class="actions text-center">
                 <%= f.submit "Sign up", class: "btn btn-dark btn-block" %>
             </div>
+            <hr>
+            <% unless current_user %>
+                <%= link_to "Sign up with Facebook", user_facebook_omniauth_authorize_path, class: "btn btn-primary btn-block" %>
+            <% else %>  <%= current_user[:name] %>
+                <%= link_to "Logout", destroy_user_session_path, method: :delete %>
+            <% end %>
         <% end %>
     </div>
 </div>
