@@ -1,0 +1,19 @@
+<%= form_for(@property) do |f| %>
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div class="form-group">
+            <%= f.label :price, "Price" %>
+            <%= f.text_field :price, placeholder: "e.g. ₱ 2,500.00", autofocus: true, class: 'form-control' %>
+        </div>
+    </div>
+</div>
+<div class="row justify-content-center">
+    <div class="form-group col-2 mt-4">
+        <div class="btn-toolbar" role="toolbar">
+            <div class="btn-group" role="group">
+                <%= f.submit "Save", class: "btn btn-dark" %>
+            </div>
+        </div>
+    </div> <!-- button -->
+</div> <!-- row -->
+<% end %>

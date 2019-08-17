@@ -1,0 +1,65 @@
+<div class="row justify-content-center">
+    <div class="col-md-10 col-md-offset-10 mt-4">
+        <div class="card text-white mb-3" style="max-width: 60rem;">
+            <div class="card-header profile-verified">Create your beautiful place</div>
+                <div class="card-body">
+                    <div class="row col-12">
+                        <div class="form-group col-4">
+                            <label class="text-dark">Home Type</label>
+                            <select class="custom-select">
+                                <option selected>Choose...</option>
+                                <option value="apartment">Apartment</option>
+                                <option value="house">House</option>
+                                <option value="bednbreakfast">Best & Breakfast</option>
+                            </select>
+                        </div> <!-- Home Type -->
+                        <div class="form-group col-4">
+                            <label class="text-dark">Room Type</label>
+                            <select class="custom-select">
+                                <option selected>Choose...</option>
+                                <option value="entire">Entire</option>
+                                <option value="private">Private</option>
+                                <option value="shared">Shared</option>
+                            </select>
+                        </div> <!-- Room Type -->
+                        <div class="form-group col-4">
+                            <label class="text-dark">Guest Count</label>
+                            <select class="custom-select">
+                                <option selected>Choose...</option>
+                                <option value="guest-1">1</option>
+                                <option value="guest-2">2</option>
+                                <option value="guest-3">3</option>
+                                <option value="guest-4">4+</option>
+                            </select>
+                        </div> <!-- Guest Count -->
+                        <div class="form-group col-4">
+                            <label class="text-dark">Bedroom Count</label>
+                            <select class="custom-select">
+                                <option selected>Choose...</option>
+                                <option value="bedroom-1">1</option>
+                                <option value="bedroom-2">2</option>
+                                <option value="bedroom-3">3</option>
+                                <option value="bedroom-4">4+</option>
+                            </select>
+                        </div> <!-- Bedroom Count -->
+                        <div class="form-group col-4">
+                            <label class="text-dark">Bathroom Count</label>
+                            <select class="custom-select">
+                                <option selected>Choose...</option>
+                                <option value="bathroom-1">1</option>
+                                <option value="bathroom-2">2</option>
+                                <option value="bathroom-3">3</option>
+                                <option value="bathroom-4">4+</option>
+                            </select>
+                        </div> <!-- Bathroom Count -->
+                    </div> <!-- row -->
+                    <div class="row col-12 mt-4">
+                        <div class="form-group col-4">
+                            <%= render 'form' %>
+                        </div> <!-- button -->
+                    </div> <!-- row -->
+                </div> <!-- card body -->
+            </div> <!-- card header -->
+        </div> <!-- card -->
+    </div> <!-- col -->
+</div> <!-- row -->
