@@ -1,19 +1,19 @@
 <%= form_for(@property) do |f| %>
-<div class="row justify-content-center">
-    <div class="col-8">
-        <div class="form-group">
-            <%= f.label :location, "Address" %>
-            <%= f.text_field :location, placeholder: "e.g. 0269 Don Gil Garcia St, Cebu City, 6000 Cebu", autofocus: true, class: 'form-control' %>
-        </div>
-    </div>
-</div>
-<div class="row justify-content-center">
-    <div class="form-group col-2 mt-4">
-        <div class="btn-toolbar" role="toolbar">
-            <div class="btn-group" role="group">
-                <%= f.submit "Save", class: "btn btn-dark" %>
+    <div class="row justify-content-center">
+        <div class="col-8">
+            <div class="form-group">
+                <%= f.label :location, "Address" %>
+                <%= f.text_field :location, placeholder: "e.g. 0269 Don Gil Garcia St, Cebu City, 6000 Cebu", autofocus: true, class: 'form-control', required: 'required' %>
             </div>
         </div>
-    </div> <!-- button -->
-</div> <!-- row -->
+    </div>
+    <div class="row justify-content-center">
+        <div class="form-group col-2 mt-4">
+            <div class="btn-toolbar" role="toolbar">
+                <div class="btn-group" role="group">
+                    <%= f.submit "Save", class: "btn btn-dark" %>
+                </div>
+            </div>
+        </div> <!-- button -->
+    </div> <!-- row -->
 <% end %>

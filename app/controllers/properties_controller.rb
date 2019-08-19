@@ -7,55 +7,58 @@ class PropertiesController < ApplicationController
     @property = current_user.properties.build(property_params)
      if @property.save 
       redirect_to listing_property_url(@property)
+      flash[:success] = "Successfully created!"
     else
+      flash[:error] = "Missing input. Please review answers."
       render 'new'        
     end
-    puts @property.errors.full_messages
   end
 
   def edit
-    @property = Property.find(params[:id])
+    properties_param
   end
 
   def update
-    @property = Property.find(params[:id])
-    if @property.save
-      @property.update(property_params)
-      redirect_to request.referrer
+    properties_param
+    if @property.update(property_params)
+      flash[:success] = "Successfully updated!"
+    else
+      flash[:error] = "Missing input. Please review answers."
     end
+    redirect_to request.referrer
   end
 
   def show
   end
 
   def listing
-    @property = Property.find(params[:id])
+    properties_param
   end
 
   def pricing
-    @property = Property.find(params[:id])
+    properties_param
   end
 
   def description
-    @property = Property.find(params[:id])
+    properties_param
   end
 
   def photos
-    @property = Property.find(params[:id])
+    properties_param
   end
 
   def amenities
-    @property = Property.find(params[:id])
+    properties_param
   end
 
   def location
-    @property = Property.find(params[:id])
+    properties_param
   end
 
   private
-      def property_params
-        params.require(:property).permit(:home_type, :guest_count, :bedroom_count, :bathroom_count, :room_type,
-          :price, :title, :description, :photos, :location, :has_tv, :has_kitchen, :has_heater, :has_aricon ,:has_wifi)
-      end
+    def property_params
+      params.require(:property).permit(:home_type, :guest_count, :bedroom_count, :bathroom_count, :room_type,
+        :price, :title, :description, :photos, :location, :has_tv, :has_kitchen, :has_heater, :has_aricon ,:has_wifi)
+    end
 
 end

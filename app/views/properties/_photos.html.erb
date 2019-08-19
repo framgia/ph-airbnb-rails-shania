@@ -1,18 +1,18 @@
 <%= form_for(@property) do |f| %>
-<div class="row justify-content-center">
-    <div class="col-8">
-        <div class="form-group">
-            <!-- insert photo field here -->
-        </div>
-    </div>
-</div>
-<div class="row justify-content-center">
-    <div class="form-group col-2 mt-4">
-        <div class="btn-toolbar" role="toolbar">
-            <div class="btn-group" role="group">
-                <%= f.submit "Add photos", class: "btn btn-dark" %>
+    <div class="row justify-content-center">
+        <div class="col-8">
+            <div class="form-group">
+                <!-- insert photo field here -->
             </div>
         </div>
-    </div> <!-- button -->
-</div> <!-- row -->
+    </div>
+    <div class="row justify-content-center">
+        <div class="form-group col-2 mt-4">
+            <div class="btn-toolbar" role="toolbar">
+                <div class="btn-group" role="group">
+                    <%= f.submit "Add photos", class: "btn btn-dark" %>
+                </div>
+            </div>
+        </div> <!-- button -->
+    </div> <!-- row -->
 <% end %>

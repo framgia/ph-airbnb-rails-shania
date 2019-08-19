@@ -1,49 +1,50 @@
 @import "bootstrap";
 
 body {
-    padding-top: 5rem;
+  padding-top: 5rem;
 }
 
 /* Profile Picture */
 .full-image {
-    width: 100%;
+  width: 100%;
 }
 
 /* Nav bar*/
 .navbar {
-    height: 4.5rem;
+  height: 4.5rem;
 }
 
 /* Banner */
 .app-brand {
-    color: #FF5A5F;
-    font-size: 50px;
+  color: #FF5A5F;
+  font-size: 50px;
 }
 
 /* Profile page */
 .profile-verified {
-    background-color: #00A699;
-    color: #fff;
-    font-size: 18px;
-    font-weight: 400;
+  background-color: #00A699;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 400;
 }
 
 h2,
 .h2 {
-    font-size: 2rem;
+  font-size: 2rem;
 }
 
 /* Listing */
 .sidebar-list {
-    .list-group-item {
-        padding-top: 0.25rem;
-        padding-bottom: 0.25rem;
-        border: 0;
+ .list-group-item {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  border: 0;
 
-        a {
-            color: black;
-        }
+    a {
+      color: black;
     }
-    list-style: none;
-    padding-left: 0;
+  }
+
+  list-style: none;
+  padding-left: 0;
 }
