@@ -19,13 +19,12 @@ class PropertiesController < ApplicationController
   end
 
   def update
-    properties_param
-    if @property.update(property_params)
+    @property = Property.find(params[:id])
+    if @property.save
+      @property.update(property_params)
+      redirect_to request.referrer
       flash[:success] = "Successfully updated!"
-    else
-      flash[:error] = "Missing input. Please review answers."
     end
-    redirect_to request.referrer
   end
 
   def show
@@ -45,6 +44,7 @@ class PropertiesController < ApplicationController
 
   def photos
     properties_param
+    @photo = Photo.new
   end
 
   def amenities

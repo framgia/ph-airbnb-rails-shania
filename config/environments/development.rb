@@ -14,6 +14,22 @@ Rails.application.configure do
     password: Rails.application.credentials.mailgun[:default_password]
   }
 
+  #AWS
+  config.paperclip_defaults = {
+    :storage => :s3,
+    :path => ':class/:attachment/:id/:style/:filename',
+    :s3_host_name => Rails.application.credentials.aws[:s3_host_name],
+    :s3_credentials => {
+      :access_key_id => Rails.application.credentials.aws[:access_key_id],
+      :secret_access_key => Rails.application.credentials.aws[:secret_access_key],
+      :s3_region => Rails.application.credentials.aws[:s3_region],
+      :bucket => Rails.application.credentials.aws[:bucket]
+    }
+  }
+
+  # Paperclip
+  # Paperclip.options[:command_path] = "/usr/local/bin/"
+
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development
   # since you don't have to restart the web server when you make code changes.
