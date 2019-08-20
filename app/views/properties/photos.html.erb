@@ -1,16 +1,33 @@
-<div class="row pt-4">
-    <div class="col-lg-3 ">
-        <%= render 'sidebar' %>
-    </div>
-    <div class="col-lg-9">
-        <div class="card mb-5">
-            <div class="card-header text-center text-white bg-dark">Photos</div>
-                <div class="card-body">
-                    <div class="container">
-                        <%= render 'photos' %>
-                    </div>
-                </div>
-            </div>
+<%= form_for(@property) do |f| %>
+    <div class="row pt-4">
+        <div class="col-lg-3 ">
+            <%= render 'sidebar' %>
         </div>
-    </div>
-</div>
+        <div class="col-lg-9">
+            <div class="card mb-5">
+                <div class="card-header text-center text-white bg-dark">Photos</div>
+                    <div class="card-body">
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="col-8">
+                                    <div class="form-group">
+                                        <!-- insert photo field here -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row justify-content-center">
+                                <div class="form-group col-2 mt-4">
+                                    <div class="btn-toolbar" role="toolbar">
+                                        <div class="btn-group" role="group">
+                                            <%= f.submit "Add photos", class: "btn btn-dark" %>
+                                        </div>
+                                    </div>
+                                </div> <!-- button -->
+                            </div> <!-- row -->
+                        </div>  <!-- container -->
+                    </div>  <!-- card body -->
+                </div> <!-- card header -->
+            </div> <!-- overall card -->
+        </div> <!-- overall col -->
+    </div> <!-- overall row -->
+<% end %>
