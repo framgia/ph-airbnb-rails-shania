@@ -1,4 +1,4 @@
-<%= form_for(@property) do |f| %>
+<%= form_for @property, url: property_photos_path(@property), method: "post", html: { :multipart => true }, enctype: 'multipart/form-data' do |f| %>
     <div class="row pt-4">
         <div class="col-lg-3 ">
             <%= render 'sidebar' %>
@@ -6,27 +6,50 @@
         <div class="col-lg-9">
             <div class="card mb-5">
                 <div class="card-header text-center text-white bg-dark">Photos</div>
-                    <div class="card-body">
-                        <div class="container">
-                            <div class="row justify-content-center">
-                                <div class="col-8">
-                                    <div class="form-group">
-                                        <!-- insert photo field here -->
+                <div class="card-body">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-8">
+                                <div class="form-group">
+                                    <div class="control-group">
+                                        <%= f.label :photos, class: "control-label" %>
+                                        <div class="controls">
+                                            <div class="text-center">
+                                                <%= file_field_tag "photos[]", type: :file, multiple: true %>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row justify-content-center">
-                                <div class="form-group col-2 mt-4">
-                                    <div class="btn-toolbar" role="toolbar">
-                                        <div class="btn-group" role="group">
-                                            <%= f.submit "Add photos", class: "btn btn-dark" %>
-                                        </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="form-group col-2 mt-4">
+                                <div class="btn-toolbar" role="toolbar">
+                                    <div class="btn-group" role="group">
+                                        <%= f.submit "Add photos", class: "btn btn-dark" %>
                                     </div>
-                                </div> <!-- button -->
-                            </div> <!-- row -->
-                        </div>  <!-- container -->
-                    </div>  <!-- card body -->
-                </div> <!-- card header -->
+                                </div>
+                            </div> <!-- button -->
+                        </div> <!-- row -->
+                        <div class="container col-lg-10">
+                            <div class="row card-deck">
+                                <% @property.photos.each do |photo| %>
+                                    <div class="col-md-4">
+                                        <div class="card">
+                                            <div class="card-header preview">
+                                                <%= image_tag photo.image.url(:original) %>
+                                            </div>
+                                            <div class="card-body">
+                                                <%= link_to "Delete", property_photo_path(@property, photo) , method: :delete,
+                                                    data: {confirm: "Are you sure want to delete this image?"}, class: "btn btn-dark" %>
+                                            </div>
+                                        </div> <!-- card -->
+                                    </div> <!-- col -->
+                                <% end %>
+                            </div> <!-- row card-deck -->
+                        </div> <!-- container for btn -->
+                    </div> <!-- overall container -->
+                </div> <!-- overall card body -->
             </div> <!-- overall card -->
         </div> <!-- overall col -->
     </div> <!-- overall row -->

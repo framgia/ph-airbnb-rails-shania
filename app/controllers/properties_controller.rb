@@ -18,15 +18,16 @@ class PropertiesController < ApplicationController
   end
 
   def edit
+    properties_param
   end
 
   def update
-    if @property.update(property_params)
+    @property = Property.find(params[:id])
+    if @property.save
+      @property.update(property_params)
       flash[:success] = "Successfully updated!"
-    else
-      flash[:error] = "Missing input. Please review answers."
+      redirect_to request.referrer
     end
-    redirect_to request.referrer
   end
 
   def listing
