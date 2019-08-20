@@ -1,4 +1,7 @@
 class PropertiesController < ApplicationController
+  before_action :check_property_params
+  before_action :logged_in_user
+
   def new
     @property = current_user.properties.build
   end
@@ -15,11 +18,9 @@ class PropertiesController < ApplicationController
   end
 
   def edit
-    properties_param
   end
 
   def update
-    properties_param
     if @property.update(property_params)
       flash[:success] = "Successfully updated!"
     else
@@ -32,27 +33,21 @@ class PropertiesController < ApplicationController
   end
 
   def listing
-    properties_param
   end
 
   def pricing
-    properties_param
   end
 
   def description
-    properties_param
   end
 
   def photos
-    properties_param
   end
 
   def amenities
-    properties_param
   end
 
   def location
-    properties_param
   end
 
   private
