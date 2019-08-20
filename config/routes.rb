@@ -5,4 +5,15 @@ Rails.application.routes.draw do
   get  'static_pages/home'
 
   resources :users
+
+  resources :properties do
+    member do
+      get 'listing'
+      get 'pricing'
+      get 'description'
+      get 'photos'
+      get 'amenities'
+      get 'location'
+    end
+  end
 end

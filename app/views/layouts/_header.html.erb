@@ -10,12 +10,15 @@
                 </form>
                 <ul class="navbar-nav ml-auto">
                     <% if user_signed_in? %>
+                        <li>
+                            <%= link_to "Become a host", new_property_path, class: "btn btn-outline-info text-white" %>
+                        </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle mr-4" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <%= current_user.name %> <b class="caret"></b>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="dropdown01">
-                            <%= link_to "Profile", current_user, class: "dropdown-item" %>
+                            <%= link_to "Manage Listing", current_user, class: "dropdown-item" %>
                             <div class="dropdown-divider"></div>
                             <%= link_to "Edit Profile", edit_user_registration_path, class: "dropdown-item" %>
                             <%= link_to "Log out", destroy_user_session_path, class:"dropdown-item", :method => :delete %>
