@@ -1,5 +1,5 @@
 class PropertiesController < ApplicationController
-  before_action :check_property_params
+  before_action :check_property_params, only: [:edit, :update, :listing, :pricing, :description, :photos, :amenities, :location]
   before_action :logged_in_user
 
   def new
@@ -29,9 +29,6 @@ class PropertiesController < ApplicationController
     redirect_to request.referrer
   end
 
-  def show
-  end
-
   def listing
   end
 
@@ -56,4 +53,7 @@ class PropertiesController < ApplicationController
         :price, :title, :description, :photos, :location, :has_tv, :has_kitchen, :has_heater, :has_aricon ,:has_wifi)
     end
 
+    def check_property_params
+      @property = Property.find_by(id: params[:id])
+    end
 end
