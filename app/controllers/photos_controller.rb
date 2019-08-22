@@ -1,6 +1,7 @@
 require 'aws-sdk'
 
 class PhotosController < ApplicationController
+
   def create
     @property = Property.find_by(id: params[:property_id])
     photos = params[:photos]
@@ -12,8 +13,13 @@ class PhotosController < ApplicationController
   end
 
   def destroy
-    Photo.find(params[:id]).destroy
+    @photo = Photo.find(params[:id])
+    @property = @photo.property # Getting the property 
+    @photo.destroy
+    @photos = @property.photos
+    
     flash[:success] = 'File deleted!'
-    redirect_to request.referrer
+
+    respond_to :js
   end
 end

@@ -18,13 +18,11 @@ class PropertiesController < ApplicationController
   end
 
   def edit
-    properties_param
   end
 
   def update
     @property = Property.find(params[:id])
-    if @property.save
-      @property.update(property_params)
+    if @property.update(property_params)
       flash[:success] = "Successfully updated!"
       redirect_to request.referrer
     end
@@ -40,6 +38,7 @@ class PropertiesController < ApplicationController
   end
 
   def photos
+    @photos = @property.photos
   end
 
   def amenities
@@ -55,6 +54,6 @@ class PropertiesController < ApplicationController
     end
 
     def check_property_params
-      @property = Property.find_by(id: params[:id])
+      @property = Property.find(params[:id])
     end
 end

@@ -18,7 +18,7 @@
                                                     <label for="photos_" class="custom-file-upload">
                                                         <i class="fa fa-cloud-upload"></i> Select photos
                                                     </label>
-                                                    <%= file_field_tag "photos[]", type: :file, multiple: true %>
+                                                    <%= file_field_tag "photos[]", type: :file, multiple: true, required: true %>
                                                 </div>
                                             </div>
                                         </div>
@@ -36,25 +36,13 @@
                             </div> <!-- button -->
                         </div> <!-- row -->
                         <div class="container col-lg-10">
-                            <div class="row card-deck">
-                                <% @property.photos.each do |photo| %>
-                                    <div class="col-md-4">
-                                        <div class="card">
-                                            <div class="card-header preview">
-                                                <%= image_tag photo.image.url(:original) %>
-                                            </div>
-                                            <div class="card-body">
-                                                <%= link_to "Delete", property_photo_path(@property, photo) , method: :delete,
-                                                    data: {confirm: "Are you sure want to delete this image?"}, class: "btn btn-dark" %>
-                                            </div>
-                                        </div> <!-- card -->
-                                    </div> <!-- col -->
-                                <% end %>
+                            <div class="row card-deck" id="photo">
+                                <%= render 'photos/photos' %>
                             </div> <!-- row card-deck -->
                         </div> <!-- container for btn -->
                     </div> <!-- overall container -->
                 </div> <!-- overall card body -->
             </div> <!-- overall card -->
-            <% end %>
+        <% end %>
     </div> <!-- overall col -->
 </div> <!-- overall row -->
