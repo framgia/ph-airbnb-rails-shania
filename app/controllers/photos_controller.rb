@@ -16,5 +16,4 @@ class PhotosController < ApplicationController
     flash[:success] = 'File deleted!'
     redirect_to request.referrer
   end
-
 end
