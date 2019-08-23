@@ -43,8 +43,28 @@ h2,
     a {
       color: black;
     }
+    list-style: none;
+    padding-left: 0;
   }
+}
 
-  list-style: none;
-  padding-left: 0;
+/* Displaying picture from AWS */
+.preview {
+    padding: 0;
+
+    img {
+        width: 100%;
+    }
+}
+
+/* File upload button */
+.custom-file-upload {
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding: 12px 70px;
+
+  cursor: pointer;
+}
+input[type="file"] {
+  display: none;
 }

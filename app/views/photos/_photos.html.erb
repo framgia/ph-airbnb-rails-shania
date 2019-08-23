@@ -1,0 +1,16 @@
+<% if @photos.any? %>
+    <% @photos.each do |photo| %>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header preview">
+                    <%= image_tag photo.image.url(:original) %>
+                </div>
+                <div class="card-body">
+                    <%= link_to "Delete", property_photo_path(@property, photo), method: :delete,
+                        data: {confirm: "Are you sure want to delete this image?"}, remote: true,
+                        class: "btn btn-dark" %>
+                </div>
+            </div> <!-- card -->
+        </div> <!-- col -->
+    <% end %>
+<% end %>

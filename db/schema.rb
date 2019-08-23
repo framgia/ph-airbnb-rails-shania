@@ -10,7 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_16_023221) do
+ActiveRecord::Schema.define(version: 2019_08_17_102216) do
+
+  create_table "photos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "property_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "image_file_name"
+    t.string "image_content_type"
+    t.integer "image_file_size"
+    t.datetime "image_updated_at"
+    t.index ["property_id"], name: "index_photos_on_property_id"
+  end
 
   create_table "properties", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "user_id"
@@ -28,7 +39,7 @@ ActiveRecord::Schema.define(version: 2019_08_16_023221) do
     t.boolean "has_aircon", default: false
     t.boolean "has_kitchen", default: false
     t.boolean "has_wifi", default: false
-    t.boolean "is_completed", default: false
+    t.boolean "published", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_properties_on_user_id"
@@ -57,5 +68,6 @@ ActiveRecord::Schema.define(version: 2019_08_16_023221) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "photos", "properties"
   add_foreign_key "properties", "users"
 end

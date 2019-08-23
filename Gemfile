@@ -5,6 +5,7 @@ ruby '2.5.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.3'
+gem 'railties', '~> 5.2', '>= 5.2.3'
 # Use bootstrap-sass to make all the necessary Bootstrap files available to the current application
 gem 'sprockets-rails', :require => 'sprockets/railtie'
 gem 'bootstrap', '~> 4.3.1'
@@ -50,8 +51,13 @@ gem 'font-awesome-rails'
 gem 'omniauth'
 gem 'omniauth-facebook'
 
+# Image uploading
+gem 'rmagick', '~> 2.15', '>= 2.15.4'
+gem 'paperclip', '~> 6.0.0'
+gem 'aws-sdk', '~> 3'
+
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  # Call 'byebug' anywhere ins the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
 
