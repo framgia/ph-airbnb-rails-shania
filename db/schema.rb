@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(version: 2019_08_17_102216) do
     t.boolean "has_aircon", default: false
     t.boolean "has_kitchen", default: false
     t.boolean "has_wifi", default: false
-    t.boolean "published", default: false
+    t.boolean "complete", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_properties_on_user_id"

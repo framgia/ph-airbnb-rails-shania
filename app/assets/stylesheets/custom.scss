@@ -9,9 +9,18 @@ body {
   width: 100%;
 }
 
+.preview {
+  padding:0;
+}
+
 /* Nav bar*/
 .navbar {
   height: 4.5rem;
+}
+
+.nav-link {
+  display: block;
+  padding: 0.5rem;
 }
 
 /* Banner */
@@ -48,6 +57,11 @@ h2,
   }
 }
 
+.sidebar-list {
+  list-style: none;
+  padding-left: 0;
+}
+
 /* Displaying picture from AWS */
 .preview {
     padding: 0;
@@ -67,4 +81,14 @@ h2,
 }
 input[type="file"] {
   display: none;
+}
+
+/* Form Group - Select */
+.form-group select {
+  width: 100%;
+  color: #565a5c;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 2px;
+  padding: 10px;
 }

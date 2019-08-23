@@ -7,5 +7,4 @@ class Property < ApplicationRecord
   validates :bedroom_count, presence: true
   validates :bathroom_count, presence: true
   validates :room_type, presence: true
-
 end
