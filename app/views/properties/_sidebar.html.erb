@@ -1,22 +1,42 @@
-<div class="sidebar-list">
-    <section class="list-group-item list-group-item-action">
-        <%= link_to "Listing", listing_property_path, class: "nav-link" %>
+<div class="sidebar-list list-group">
+    <section class="list-group-item d-flex justify-content-between align-items-center">
+            <%= link_to "Listing", listing_property_path, class: "nav-link" %>
+            <% if @property.home_type? %>
+                <span class="pull-right"><i class="fa fa-check-circle" style="font-size:24px;color:black"></i></span>
+            <% end %>
     </section>
-    <section class="list-group-item list-group-item-action">
+    <section class="list-group-item d-flex justify-content-between align-items-center">
         <%= link_to "Pricing", pricing_property_path, class: "nav-link" %>
+        <% if @property.price? %>
+            <span class="pull-right"><i class="fa fa-check-circle" style="font-size:24px;color:black"></i></span>
+        <% end %>
     </section>
-    <section class="list-group-item list-group-item-action">
+    <section class="list-group-item d-flex justify-content-between align-items-center">
         <%= link_to "Description", description_property_path, class: "nav-link" %>
+        <% if @property.title? %>
+            <span class="pull-right"><i class="fa fa-check-circle" style="font-size:24px;color:black"></i></span>
+        <% end %>
     </section>
-    <section class="list-group-item list-group-item-action">
+    <section class="list-group-item d-flex justify-content-between align-items-center">
         <%= link_to "Photos", photos_property_path, class: "nav-link" %>
+        <% if @property.photos.any? %>
+            <span class="pull-right"><i class="fa fa-check-circle" style="font-size:24px;color:black"></i></span>
+        <% end %>
     </section>
-    <section class="list-group-item list-group-item-action">
+    <section class="list-group-item d-flex justify-content-between align-items-center">
         <%= link_to "Amenities", amenities_property_path, class: "nav-link" %>
+        <span class="pull-right"><i class="fa fa-check-circle" style="font-size:24px;color:black"></i></span>
     </section>
-    <section class="list-group-item list-group-item-action">
+    <section class="list-group-item d-flex justify-content-between align-items-center">
         <%= link_to "Location", location_property_path, class: "nav-link" %>
+        <% if @property.location? %>
+            <span class="pull-right"><i class="fa fa-check-circle" style="font-size:24px;color:black"></i></span>
+        <% end %>
     </section>
     <hr>
-    <%= link_to "Publish", "#", class: "btn btn-dark btn-block", remote: true %>
+    <% complete = @property.home_type? && @property.price? && @property.title? && @property.photos.any? && @property.location? && (@property.complete? !=  "true") %>
+    <%= form_for(@property) do |f| %>
+        <%= hidden_field_tag 'complete', complete %>
+        <%= f.submit "Publish", class: "btn btn-dark btn-block", disabled: !complete , data: { disable_with: "Publish" } %>
+    <% end %>
 </div>

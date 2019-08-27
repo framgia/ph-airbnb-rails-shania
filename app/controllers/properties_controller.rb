@@ -1,6 +1,11 @@
 class PropertiesController < ApplicationController
-  before_action :check_property_params, only: [:edit, :update, :listing, :pricing, :description, :photos, :amenities, :location]
+  before_action :check_property_params, only: [:edit, :update, :listing,
+    :pricing, :description, :photos, :amenities, :location]
   before_action :logged_in_user
+
+  def index
+    @properties = current_user.properties
+  end
 
   def new
     @property = current_user.properties.build
@@ -21,9 +26,12 @@ class PropertiesController < ApplicationController
   end
 
   def update
-    @property = Property.find(params[:id])
-    if @property.update(property_params)
-      flash[:success] = "Successfully updated!"
+    if is_complete
+      @property.update_attribute(:complete, true)
+      redirect_to properties_url
+    else
+      @property.update(property_params)
+      flash[:success] = "Saved!"
       redirect_to request.referrer
     end
   end
@@ -50,10 +58,14 @@ class PropertiesController < ApplicationController
   private
     def property_params
       params.require(:property).permit(:home_type, :guest_count, :bedroom_count, :bathroom_count, :room_type,
-        :price, :title, :description, :photos, :location, :has_tv, :has_kitchen, :has_heater, :has_aricon ,:has_wifi)
+        :price, :title, :description, :photos, :location, :has_tv, :has_kitchen, :has_heater, :has_aircon ,:has_wifi)
     end
 
     def check_property_params
       @property = Property.find(params[:id])
+    end
+
+    def is_complete
+      complete = @property.home_type? && @property.price? && @property.title? && @property.photos.any? && @property.location? && (@property.complete? !=  "true")
     end
 end
