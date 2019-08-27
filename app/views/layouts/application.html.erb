@@ -8,7 +8,6 @@
         <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
         <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
         <%= render 'layouts/shim' %>
-        <script src="https://kit.fontawesome.com/78a530eb20.js"></script>
     </head>
     <body>
         <%= render 'layouts/header' %>
@@ -16,13 +15,5 @@
             <%= yield %>
         </div>
         <%= custom_bootstrap_flash %>
-
-        <script type="text/javascript">
-        $(document).on('turbolinks:load', function(){
-            $('.carousel').carousel({
-                interval: 2000
-            });
-        });
-        </script>
     </body>
 </html>
