@@ -34,7 +34,9 @@
     </div>
     <div class="col-lg-9">
         <h1><%= @user.name %></h1>
-        <h5 class="blockquote-footer" style="font-size:1.5rem"><%= @user.description %></h5>
+        <% if @user.description? %>
+            <h5 class="blockquote-footer" style="font-size:1.5rem"><%= @user.description %></h5>
+        <% end %>
         <hr />
         <div class="container mt-4">
             <div class="row justify-content-left">

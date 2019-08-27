@@ -1,5 +1,5 @@
 class PropertiesController < ApplicationController
-  before_action :check_property_params, only: [:edit, :update, :listing,
+  before_action :check_property_params, only: [:edit, :update, :listing, :show,
     :pricing, :description, :photos, :amenities, :location]
   before_action :logged_in_user
 
@@ -34,6 +34,9 @@ class PropertiesController < ApplicationController
       flash[:success] = "Saved!"
       redirect_to request.referrer
     end
+  end
+
+  def show
   end
 
   def listing

@@ -9,7 +9,7 @@ module UsersHelper
   #Returns profile picture of a user.
   def profile_picture(user, size: 100)
     if user.image?
-      image_tag("http://graph.facebook.com/v2.10/#{@user.uid}/picture?type=large", class:"full-image")
+      image_tag("http://graph.facebook.com/v2.10/#{user.uid}/picture?type=large", class:"full-image")
     else
       gravatar_for(user, size: "250")
     end
