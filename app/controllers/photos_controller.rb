@@ -1,5 +1,3 @@
-require 'aws-sdk'
-
 class PhotosController < ApplicationController
 
   def create

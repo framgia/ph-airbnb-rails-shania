@@ -18,3 +18,10 @@
 //= require turbolinks
 //= require_tree .
 //= require toastr
+
+// Carousel
+$(document).on('turbolinks:load', function(){
+    $('.carousel').carousel({
+        interval: 2000
+    });
+});

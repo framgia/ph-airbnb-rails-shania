@@ -9,6 +9,13 @@ body {
   width: 100%;
 }
 
+.rounded-circle {
+  img {
+    border-radius: 50%;
+    width: 50%;
+  }
+}
+
 .preview {
   padding:0;
 }
@@ -91,4 +98,17 @@ input[type="file"] {
   border: 1px solid black;
   border-radius: 2px;
   padding: 10px;
+}
+
+
+/* Listing Page */
+
+.text-line-through {
+  text-decoration: line-through;
+}
+
+.amenities {
+  li {
+    list-style-type: none;
+  }
 }
