@@ -112,18 +112,3 @@ input[type="file"] {
     list-style-type: none;
   }
 }
-
-
-/* Carousel - same size */
-
-.carousel-item{
-  width: 100%; /*width you want*/
-  height: 500px; /*height you want*/
-  overflow: hidden;
-}
-
-.carousel-item img{
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
