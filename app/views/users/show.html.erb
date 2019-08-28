@@ -13,17 +13,17 @@
             <div class="card-body">
                 <ul class="sidebar-list">
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col-12 mt-2">
                             <% if @user.email? %>
                                 <li>
-                                    Email address<span class="pull-right"><i class="fa fa-check-circle" style="font-size:24px;color:black"></i></span>
+                                    Email address<span class="float-right"><i class="fa fa-check-circle" style="font-size:24px;color:black"></i></span>
                                 </li>
                             <% end %>
                         </div>
-                        <div class="col-12">
+                        <div class="col-12 mt-4">
                             <% if @user.phonenumber? %>
                                 <li>
-                                    Phone number<span class="pull-right"><i class="fa fa-check-circle" style="font-size:24px;color:black"></i></span>
+                                    Phone number<span class="float-right"><i class="fa fa-check-circle" style="font-size:24px;color:black"></i></span>
                                 </li>
                             <% end %>
                         </div>
@@ -40,7 +40,7 @@
         <hr />
         <div class="container mt-4">
             <div class="row justify-content-left">
-                <h2>Listings (<%= current_user.properties.count %>)</h2>
+                <h2> Listings (<%= current_user.properties.count %>) </h2>
                 <div class = "container mt-4">
                     <div class = "row">
                         <% if current_user.properties.any? %>
@@ -60,7 +60,7 @@
                                                 <%= link_to property.title, property_path(property) %>
                                             </h5>
                                             <p class="text-muted">
-                                                $<%= property.price %> - <%= property.home_type %> - <%= property.bedroom_count %>
+                                                $ <%= property.price %> - <%= property.home_type %> - <%= property.bedroom_count %>
                                             </p>
                                         </div>
                                     </div>
@@ -73,7 +73,7 @@
                             </div>
                             <div class="col-12 text-center">
                                 <p>The page you are looking for is empty</p>
-                                <%= link_to "List your own space now", new_property_path %>
+                                <%= link_to "List your own space now", new_property_path, class: "text-info" %>
                             </div>
                         <% end %> <!-- if property.any -->
                     </div> <!-- row -->

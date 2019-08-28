@@ -17,7 +17,7 @@
                 </div>
             </div> <!-- row - basic info -->
             <hr />
-            <div class="row text-center mt-4 text-primary">
+            <div class="row text-center mt-4 text-info">
                 <div class="col-3">
                     <i class="fa fa-home fa-2x"></i>
                 </div>
@@ -31,7 +31,7 @@
                     <i class="fa fa-bath fa-2x"></i>
                 </div>
             </div> <!-- row - fa icons -->
-            <div class="row text-center text-primary">
+            <div class="row text-center text-info">
                 <div class="col-3">
                     <%= @property.home_type %>
                 </div>
@@ -63,23 +63,23 @@
                     <div class="row">
                         <div class="col-6">
                             <ul class="amenities">
-                                <li class="<%= @property.has_tv? ? '' : 'text-line-through' %>"> 
+                                <li class="<%= @property.has_tv? ? '' : 'text-line-through' %>">
                                     TV
                                 </li>
-                                <li class="<%= @property.has_kitchen? ? '' : 'text-line-through' %>"> 
+                                <li class="<%= @property.has_kitchen? ? '' : 'text-line-through' %>">
                                     Kitchen
                                 </li>
-                                <li class="<%= @property.has_wifi? ? '' : 'text-line-through' %>"> 
+                                <li class="<%= @property.has_wifi? ? '' : 'text-line-through' %>">
                                     Internet
                                 </li>
                             </ul>
                         </div>
                         <div class="col-6">
                             <ul class="amenities">
-                                <li class="<%= @property.has_heater? ? '' : 'text-line-through' %>"> 
+                                <li class="<%= @property.has_heater? ? '' : 'text-line-through' %>">
                                     Heating
                                 </li>
-                                <li class="<%= @property.has_aircon ? '' : 'text-line-through' %>"> 
+                                <li class="<%= @property.has_aircon ? '' : 'text-line-through' %>">
                                     Air Condition
                                 </li>
                             </ul>
@@ -88,17 +88,19 @@
                 </div>
             </div>
             <div class="row">
-                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" role="listbox" style="width:100%; height: 500px !important;">
+                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" role="listbox"
+                    style="width:100%; height: 500px !important;">
                     <ol class="carousel-indicators">
                         <% @property.photos.each.with_index(0) do |photo, index| %>
-                            <li data-target="#carouselExampleIndicators" data-slide-to="<%= index %>" class="<%= index.zero? ? 'active' : '' %>"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="<%= index %>"
+                            class="<%= index.zero? ? 'active' : '' %>"></li>
                         <% end %>
                     </ol>
                     <div class="carousel-inner">
                         <% @property.photos.each.with_index(0) do |photo, index| %>
-                            <div class="carousel-item <%= index.zero? ? 'active' : '' %>">
-                                <%= image_tag photo.image.url(:original), class: "d-block w-100" %>
-                            </div>
+                        <div class="carousel-item <%= index.zero? ? 'active' : '' %>">
+                            <%= image_tag photo.image.url(:original), class: "d-block w-100" %>
+                        </div>
                         <% end %>
                     </div>
                     <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -115,24 +117,116 @@
         <div class="col-4">
             <div class="card">
                 <div class="card-header bg-dark text-light">
-                    <span>
-                        <i class="fas fa-bolt yellow"></i> 
-                        $<%= @property.price %> 
+                    <i class="fa fa-bolt"></i> $
+                    <span id="price">
+                        <%= @property.price %>
                     </span>
                     <span class="float-right">
                         Per Night
                     </span>
-                </div>
+                </div> <!-- card header -->
+                <%= form_for [@property, @reservation] do |f| %>
                 <div class="card-body">
                     <div class="row">
-                        <label class="col-6">Check in</label>
-                        <label class="col-6">Check out</label>
-                    </div>
-                    <div>
-                        <button class="btn btn-primary btn-block my-2" disabled="disabled">Book Now</button>
-                    </div>
-                </div>
-            </div>
+                        <div class="col-6">
+                            <%= f.label :start_date, "Check in" %>
+                            <%= f.text_field :start_date, placeholder: "Start date", id: "start_date", class: "form-control", required: true, autocomplete: 'off' %>
+                        </div>
+                        <div class="col-6">
+                            <%= f.label :end_date, "Check out" %>
+                            <%= f.text_field :end_date, placeholder: "End date", id: "end_date", class: "form-control", required: true, autocomplete: 'off' %>
+                        </div>
+                    </div> <!-- row check in/out-->
+                    <div class="row">
+                        <div class="col-12 mt-2" id="list">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Price <span class="float-right">$ <%= @property.price %></span></li>
+                                <li class="list-group-item">Night(s) <span class="float-right" id="totalDays"></span></li>
+                                <li class="list-group-item">Total <span class="float-right" id="totalPrice"></li>
+                            </ul>
+                        </div>
+                        <div class="col-12">
+                            <%= f.submit "Book now", id: "btn-booknow", class: "btn btn-info btn-block mt-4" %>
+                        </div>
+                    </div> <!-- Book Now btn -->
+                </div> <!-- card body -->
+                <% end %>
+            </div> <!-- card -->
         </div> <!-- col 4 -->
-    </div>
+    </div> <!-- row mt-4 -->
 </div> <!-- container -->
+
+<script type="text/javascript">
+    // Datepicker
+    $(function () {
+        $("#start_date").datepicker({
+            minDate: 0,
+            monthNamesShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct",
+                "Nov", "Dec"
+            ],
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: 'mm/dd/yy'
+        });
+        $("#end_date").datepicker({
+            minDate: 0,
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: 'mm/dd/yy'
+        });
+    });
+
+    $(document).ready(() => {
+        $('#list').hide();
+    })
+
+    $('#start_date').change(function () {
+        if (($('#start_date').val() != "") && ($('#end_date').val() != "")) {
+            calculate();
+            $('#btn-booknow').attr('disabled', false);
+            $('#list').show();
+        } else {
+            $('#btn-booknow').attr('disabled', true);
+            $('#list').hide();
+        }
+    });
+
+    $('#end_date').change(function () {
+        if (($('#start_date').val() != "") && ($('#end_date').val() != "")) {
+            calculate();
+            $('#btn-booknow').attr('disabled', false);
+            $('#list').show();
+        } else {
+            $('#btn-booknow').attr('disabled', true);
+            $('#list').hide();
+        }
+    });
+
+    function calculate() {
+        var startDate = new Date($('#start_date').val()),
+            endDate = new Date($('#end_date').val()),
+            daysDiff = calcHolidays(startDate, endDate);
+        if (isNaN(daysDiff)) {
+            $('#totalDays').text("");
+        } else {
+            $('#totalDays').text(daysDiff);
+        }
+
+        var price = parseFloat($('#price').text());
+        var totalPrice = parseFloat(price * daysDiff);
+        $('#totalPrice').text('$ ' + totalPrice + '.0');
+    }
+
+    function calcHolidays(dDate1, dDate2) {
+        var weeks, dateDiff, weekDay1, weekDay2;
+        if (dDate2 < dDate1) return -1;
+        weekDay1 = dDate1.getDay(),
+            weekDay2 = dDate2.getDay();
+        weeks = Math.floor((dDate2.getTime() - dDate1.getTime()) / 604800000);
+        if (weekDay1 <= weekDay2)
+            dateDiff = (weeks * 7) + (weekDay2 - weekDay1);
+        else
+            dateDiff = ((weeks + 1) * 7) - (weekDay1 - weekDay2);
+        return (dateDiff);
+    }
+</script>

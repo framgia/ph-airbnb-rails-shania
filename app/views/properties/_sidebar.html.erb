@@ -37,6 +37,6 @@
     <% complete = @property.home_type? && @property.price? && @property.title? && @property.photos.any? && @property.location? && (@property.complete? !=  "true") %>
     <%= form_for(@property) do |f| %>
         <%= hidden_field_tag 'complete', complete %>
-        <%= f.submit "Publish", class: "btn btn-dark btn-block", disabled: !complete , data: { disable_with: "Publish" } %>
+        <%= f.submit "Publish", class: "btn btn-dark btn-block", disabled: !complete, data: { disable_with: "Publish" } %>
     <% end %>
 </div>

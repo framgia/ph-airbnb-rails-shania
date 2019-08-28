@@ -56,6 +56,9 @@ gem 'rmagick', '~> 2.15', '>= 2.15.4'
 gem 'paperclip', '~> 6.0.0'
 gem 'aws-sdk', '~> 3'
 
+# Calendar
+gem 'jquery-ui-rails'
+
 group :development, :test do
   # Call 'byebug' anywhere ins the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

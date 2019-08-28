@@ -37,6 +37,13 @@ class PropertiesController < ApplicationController
   end
 
   def show
+    @resDates = []
+    @property.reservations.each do |res|
+      @resDates.push(res.start_date, res.end_date)
+    end
+
+    @reservation = @property.reservations.new
+    @reservations = Reservation.all()
   end
 
   def listing
@@ -61,7 +68,7 @@ class PropertiesController < ApplicationController
   private
     def property_params
       params.require(:property).permit(:home_type, :guest_count, :bedroom_count, :bathroom_count, :room_type,
-        :price, :title, :description, :photos, :location, :has_tv, :has_kitchen, :has_heater, :has_aircon ,:has_wifi)
+        :price, :title, :description, :photos, :location, :has_tv, :has_kitchen, :has_heater, :has_aircon, :has_wifi)
     end
 
     def check_property_params

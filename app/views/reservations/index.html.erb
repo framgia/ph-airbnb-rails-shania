@@ -1,0 +1,58 @@
+<div class="row"> 
+    <div class="col-3">
+        <div class="card mt-4">
+            <div class="card-body">
+                <%= render 'properties/managesidebar' %>
+            </div>
+        </div>
+    </div><!-- col-3 -->
+    <div class="col-9">
+        <div class="card mt-4">
+            <div class="card-header text-white bg-dark">
+                Your Reservations
+            </div> <!-- card header -->
+            <div class="card-body p-4">
+                <div class="container">
+                    <% if @properties.any? && @count > 0 %>
+                        <% @properties.each do |property| %>
+                            <% property.reservations.each do |reservation| %>
+                                <div class="row">
+                                    <div class="col-3 mt-3">
+                                        <h5><%= (reservation.start_date).strftime('%d-%b-%Y') %></h5>
+                                    </div> <!-- start date -->
+                                    <div class="col-2 mt-2">
+                                        <% if reservation.property.photos.any? %>
+                                            <%= image_tag reservation.property.photos.first.image.url(:thumb), style: 'height:80px;width:110px;', class: 'img-thumbnail' %>
+                                        <% else %>
+                                            <%= image_tag 'nophoto.png', style: 'height:100px;width:110px;', class: 'img-thumbnail' %>
+                                        <% end %>
+                                    </div> <!-- property profile picture -->
+                                    <div class="col-4">
+                                        <div class="row">
+                                            <%= link_to reservation.property.title, reservation.property, class: "col-12" %>
+                                            <span class="smaller-circle col-12">
+                                                <%= profile_picture(reservation.user) %>
+                                            </span>
+                                            <%= link_to reservation.user.name, reservation.user, class: "col-12" %>
+                                        </div>
+                                    </div> <!-- col-4 -->
+                                    <div class="col-3 mt-3">
+                                        <%= link_to "Review Host", "#", class: "btn btn-info float-right" %>
+                                    </div>
+                                </div> <!-- card ROW -->
+                                <hr>
+                            <% end %>
+                        <% end %>
+                    <% else %>
+                        <div class="col-12 text-center">
+                            <p><i class="fa fa-folder-open" style="font-size: 5rem;"></i></p>
+                        </div>
+                        <div class="col-12 text-center">
+                            <p>The page you are looking for is empty</p>
+                        </div>
+                    <% end %> <!-- if exists -->
+                </div> <!-- container -->
+            </div> <!-- card body -->
+        </div> <!-- card -->
+    </div> <!-- col-9 -->
+</div> <!-- row -->
