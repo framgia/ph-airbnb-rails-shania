@@ -126,30 +126,31 @@
                     </span>
                 </div> <!-- card header -->
                 <%= form_for [@property, @reservation] do |f| %>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-6">
-                            <%= f.label :start_date, "Check in" %>
-                            <%= f.text_field :start_date, placeholder: "Start date", id: "start_date", class: "form-control", required: true, autocomplete: 'off' %>
-                        </div>
-                        <div class="col-6">
-                            <%= f.label :end_date, "Check out" %>
-                            <%= f.text_field :end_date, placeholder: "End date", id: "end_date", class: "form-control", required: true, autocomplete: 'off' %>
-                        </div>
-                    </div> <!-- row check in/out-->
-                    <div class="row">
-                        <div class="col-12 mt-2" id="list">
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">Price <span class="float-right">$ <%= @property.price %></span></li>
-                                <li class="list-group-item">Night(s) <span class="float-right" id="totalDays"></span></li>
-                                <li class="list-group-item">Total <span class="float-right" id="totalPrice"></li>
-                            </ul>
-                        </div>
-                        <div class="col-12">
-                            <%= f.submit "Book now", id: "btn-booknow", class: "btn btn-info btn-block mt-4" %>
-                        </div>
-                    </div> <!-- Book Now btn -->
-                </div> <!-- card body -->
+                    <input type="hidden" data-unavailable="<%= @property.unavailable_dates.to_json %>" class="property-dates">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <%= f.label :start_date, "Check in" %>
+                                <%= f.text_field :start_date, placeholder: "Start date", id: "start_date", class: "form-control", required: true, autocomplete: 'off', readonly: true %>
+                            </div>
+                            <div class="col-6">
+                                <%= f.label :end_date, "Check out" %>
+                                <%= f.text_field :end_date, placeholder: "End date", id: "end_date", class: "form-control", required: true, autocomplete: 'off', readonly: true %>
+                            </div>
+                        </div> <!-- row check in/out-->
+                        <div class="row">
+                            <div class="col-12 mt-2" id="list">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">Price <span class="float-right">$ <%= @property.price %></span></li>
+                                    <li class="list-group-item">Night(s) <span class="float-right" id="totalDays"></span></li>
+                                    <li class="list-group-item">Total <span class="float-right" id="totalPrice"></li>
+                                </ul>
+                            </div>
+                            <div class="col-12">
+                                <%= f.submit "Book now", id: "btn-booknow", class: "btn btn-info btn-block mt-4" %>
+                            </div>
+                        </div> <!-- Book Now btn -->
+                    </div> <!-- card body -->
                 <% end %>
             </div> <!-- card -->
         </div> <!-- col 4 -->
@@ -157,8 +158,29 @@
 </div> <!-- container -->
 
 <script type="text/javascript">
-    // Datepicker
-    $(function () {
+   $(document).ready(() => {
+        $('#list').hide();
+        $('#btn-booknow').attr('disabled', true);
+        $('#end_date').attr('disabled', true);
+    });
+
+    // Disabling days
+    var dateRange = JSON.parse(document.querySelector('.property-dates').dataset.unavailable);
+    var startDate = {};
+    var endDate = {};
+    
+    var unavailDates = function(date) {
+        var allDates = [];
+        for (let i = 0; i < dateRange.length; i++) {
+            for (let j = 0; j < dateRange[i].length; j++) {
+                allDates.push(dateRange[i][j]);
+            }
+        }
+        var dateString = jQuery.datepicker.formatDate('yy-mm-dd', date);
+        return [allDates.indexOf(dateString) == -1];
+    }
+
+    $(function() {
         $("#start_date").datepicker({
             minDate: 0,
             monthNamesShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct",
@@ -166,57 +188,83 @@
             ],
             changeMonth: true,
             changeYear: true,
-            dateFormat: 'mm/dd/yy'
+            dateFormat: 'mm/dd/yy',
+            beforeShowDay: unavailDates,
+            onSelect: function() {
+                var start_date = $('#start_date').datepicker('getDate');
+                var end_date = $('#end_date').datepicker('getDate');
+                var days_count = calcHolidays(start_date, end_date);
+                var price = parseFloat($('#price').text());
+                var total_price = parseFloat(price * days_count);
+
+                $.ajax({
+                    url: '',
+                    data: '',
+                    success: function(data) {
+                        if(new Date(start_date).getDay() === new Date(end_date).getDay()) {
+                            $('#list').hide();
+                            $("#btn-booknow").attr("disabled", true);
+                        } else {
+                            $("#end_date").attr("disabled", (start_date == null));
+
+                            if (end_date == null) {
+                                $('#list').hide();
+                                $("#btn-booknow").attr("disabled", true);
+                            } else {
+                                $('#list').show();
+                                $('#totalDays').text(days_count);
+                                $('#totalPrice').text('$ ' + total_price + '.00');
+                                $("#btn-booknow").attr("disabled", false);
+                            }
+                        }
+                    }
+                });
+            }
         });
+
         $("#end_date").datepicker({
             minDate: 0,
+            monthNamesShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct",
+                "Nov", "Dec"
+            ],
             changeMonth: true,
             changeYear: true,
-            dateFormat: 'mm/dd/yy'
+            dateFormat: 'mm/dd/yy',
+            beforeShowDay: unavailDates,    
+            onSelect: function() {
+                var start_date = $('#start_date').datepicker('getDate');
+                var end_date = $('#end_date').datepicker('getDate');
+                var days_count = calcHolidays(start_date, end_date);
+                var price = parseFloat($('#price').text());
+                var total_price = parseFloat(price * days_count);
+
+                $.ajax({
+                    url: '',
+                    data: '',
+                    success: function(data) {
+                        if(new Date(start_date).getDay() === new Date(end_date).getDay()) {
+                            $('#list').hide();
+                            $("#btn-booknow").attr("disabled", true);
+                        } else {
+                            $("#end_date").attr("disabled", (start_date == null));
+
+                            if (start_date == null) {
+                                $('#list').hide();
+                                $("#btn-booknow").attr("disabled", true);
+                            } else {
+                                $('#list').show();
+                                $('#totalDays').text(days_count);
+                                $('#totalPrice').text('$ ' + total_price + '.00');
+                                $("#btn-booknow").attr("disabled", false);
+                            }
+                        }
+                    }
+                });
+            }
         });
     });
 
-    $(document).ready(() => {
-        $('#list').hide();
-    })
-
-    $('#start_date').change(function () {
-        if (($('#start_date').val() != "") && ($('#end_date').val() != "")) {
-            calculate();
-            $('#btn-booknow').attr('disabled', false);
-            $('#list').show();
-        } else {
-            $('#btn-booknow').attr('disabled', true);
-            $('#list').hide();
-        }
-    });
-
-    $('#end_date').change(function () {
-        if (($('#start_date').val() != "") && ($('#end_date').val() != "")) {
-            calculate();
-            $('#btn-booknow').attr('disabled', false);
-            $('#list').show();
-        } else {
-            $('#btn-booknow').attr('disabled', true);
-            $('#list').hide();
-        }
-    });
-
-    function calculate() {
-        var startDate = new Date($('#start_date').val()),
-            endDate = new Date($('#end_date').val()),
-            daysDiff = calcHolidays(startDate, endDate);
-        if (isNaN(daysDiff)) {
-            $('#totalDays').text("");
-        } else {
-            $('#totalDays').text(daysDiff);
-        }
-
-        var price = parseFloat($('#price').text());
-        var totalPrice = parseFloat(price * daysDiff);
-        $('#totalPrice').text('$ ' + totalPrice + '.0');
-    }
-
+    // Calculator
     function calcHolidays(dDate1, dDate2) {
         var weeks, dateDiff, weekDay1, weekDay2;
         if (dDate2 < dDate1) return -1;
@@ -229,4 +277,5 @@
             dateDiff = ((weeks + 1) * 7) - (weekDay1 - weekDay2);
         return (dateDiff);
     }
+
 </script>

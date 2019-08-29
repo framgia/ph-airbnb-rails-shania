@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(version: 2019_08_27_030939) do
     t.integer "property_id"
     t.date "start_date"
     t.date "end_date"
-    t.boolean "reserved", default: false
+    t.float "total_price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["property_id", "created_at"], name: "index_reservations_on_property_id_and_created_at"

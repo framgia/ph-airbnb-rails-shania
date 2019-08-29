@@ -5,7 +5,7 @@ class CreateReservations < ActiveRecord::Migration[5.2]
       t.integer :property_id, foreign_key: true
       t.date    :start_date
       t.date    :end_date
-      t.boolean :reserved, default: false
+      t.float   :total_price
 
       t.timestamps
     end

@@ -1,7 +1,7 @@
 class PropertiesController < ApplicationController
   before_action :check_property_params, only: [:edit, :update, :listing, :show,
     :pricing, :description, :photos, :amenities, :location]
-  before_action :logged_in_user
+  before_action :authenticate_user!
 
   def index
     @properties = current_user.properties
@@ -37,13 +37,10 @@ class PropertiesController < ApplicationController
   end
 
   def show
-    @resDates = []
-    @property.reservations.each do |res|
-      @resDates.push(res.start_date, res.end_date)
-    end
+    # @inbetween = @property.reservations.where("? < start_date AND end_date < ?", params[:start_date], params[:end_date])
 
     @reservation = @property.reservations.new
-    @reservations = Reservation.all()
+    @reservations = Reservation.all
   end
 
   def listing

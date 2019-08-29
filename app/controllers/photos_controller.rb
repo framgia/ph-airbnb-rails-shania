@@ -1,4 +1,5 @@
 class PhotosController < ApplicationController
+  before_action :authenticate_user!
 
   def create
     @property = Property.find_by(id: params[:property_id])
