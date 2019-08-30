@@ -37,10 +37,7 @@ class PropertiesController < ApplicationController
   end
 
   def show
-    # @inbetween = @property.reservations.where("? < start_date AND end_date < ?", params[:start_date], params[:end_date])
-
     @reservation = @property.reservations.new
-    @reservations = Reservation.all
   end
 
   def listing

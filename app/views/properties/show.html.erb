@@ -163,14 +163,15 @@
         $('#btn-booknow').attr('disabled', true);
         $('#end_date').attr('disabled', true);
     });
-
+ 
     // Disabling days
     var dateRange = JSON.parse(document.querySelector('.property-dates').dataset.unavailable);
     var startDate = {};
     var endDate = {};
-    
+   
     var unavailDates = function(date) {
         var allDates = [];
+        var start_date = $('#start_date').datepicker('getDate');
         for (let i = 0; i < dateRange.length; i++) {
             for (let j = 0; j < dateRange[i].length; j++) {
                 allDates.push(dateRange[i][j]);
@@ -179,7 +180,7 @@
         var dateString = jQuery.datepicker.formatDate('yy-mm-dd', date);
         return [allDates.indexOf(dateString) == -1];
     }
-
+ 
     $(function() {
         $("#start_date").datepicker({
             minDate: 0,
@@ -190,13 +191,15 @@
             changeYear: true,
             dateFormat: 'mm/dd/yy',
             beforeShowDay: unavailDates,
-            onSelect: function() {
+            onSelect: function(selected) {
                 var start_date = $('#start_date').datepicker('getDate');
+                $('#end_date').datepicker('option', 'minDate', selected);
                 var end_date = $('#end_date').datepicker('getDate');
                 var days_count = calcHolidays(start_date, end_date);
                 var price = parseFloat($('#price').text());
                 var total_price = parseFloat(price * days_count);
-
+                $('#end_date').datepicker("setDate", start_date);
+ 
                 $.ajax({
                     url: '',
                     data: '',
@@ -206,7 +209,7 @@
                             $("#btn-booknow").attr("disabled", true);
                         } else {
                             $("#end_date").attr("disabled", (start_date == null));
-
+ 
                             if (end_date == null) {
                                 $('#list').hide();
                                 $("#btn-booknow").attr("disabled", true);
@@ -220,9 +223,11 @@
                     }
                 });
             }
-        });
-
+        }); // start date
+           
         $("#end_date").datepicker({
+            // console.log(new Date($('#start_date').datepicker('getDate')));
+            // minDate: new Date($('#start_date').datepicker('getDate')),
             minDate: 0,
             monthNamesShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct",
                 "Nov", "Dec"
@@ -231,13 +236,14 @@
             changeYear: true,
             dateFormat: 'mm/dd/yy',
             beforeShowDay: unavailDates,    
-            onSelect: function() {
+            onSelect: function(selected) {
                 var start_date = $('#start_date').datepicker('getDate');
+                $('#start_date').datepicker('option', 'maxDate', selected);
                 var end_date = $('#end_date').datepicker('getDate');
                 var days_count = calcHolidays(start_date, end_date);
                 var price = parseFloat($('#price').text());
                 var total_price = parseFloat(price * days_count);
-
+ 
                 $.ajax({
                     url: '',
                     data: '',
@@ -247,7 +253,7 @@
                             $("#btn-booknow").attr("disabled", true);
                         } else {
                             $("#end_date").attr("disabled", (start_date == null));
-
+ 
                             if (start_date == null) {
                                 $('#list').hide();
                                 $("#btn-booknow").attr("disabled", true);
@@ -257,13 +263,14 @@
                                 $('#totalPrice').text('$ ' + total_price + '.00');
                                 $("#btn-booknow").attr("disabled", false);
                             }
-                        }
-                    }
-                });
-            }
-        });
-    });
-
+                        } // else1
+                    } // success:
+                }); // Ajax
+            } // onSelect
+        }); // end date
+ 
+    }); // function
+ 
     // Calculator
     function calcHolidays(dDate1, dDate2) {
         var weeks, dateDiff, weekDay1, weekDay2;
@@ -277,5 +284,5 @@
             dateDiff = ((weeks + 1) * 7) - (weekDay1 - weekDay2);
         return (dateDiff);
     }
-
+ 
 </script>

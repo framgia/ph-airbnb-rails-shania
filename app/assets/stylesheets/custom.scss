@@ -123,3 +123,10 @@ input[type="file"] {
     list-style-type: none;
   }
 }
+
+// Selected Start Date
+.selectedDate a {
+  background-color: blue !important;
+  background-image :none !important;
+  color: #ffffff !important;
+}
