@@ -18,6 +18,7 @@
 //= require turbolinks
 //= require_tree .
 //= require toastr
+//= require jquery-ui/widgets/datepicker
 
 // Carousel
 $(document).on('turbolinks:load', function(){

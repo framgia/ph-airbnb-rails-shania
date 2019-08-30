@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   # Custom
   has_many :properties
+  has_many :reservations
   
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable

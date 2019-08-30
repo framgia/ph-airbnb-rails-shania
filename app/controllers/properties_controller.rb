@@ -1,7 +1,7 @@
 class PropertiesController < ApplicationController
   before_action :check_property_params, only: [:edit, :update, :listing, :show,
     :pricing, :description, :photos, :amenities, :location]
-  before_action :logged_in_user
+  before_action :authenticate_user!
 
   def index
     @properties = current_user.properties
@@ -37,6 +37,7 @@ class PropertiesController < ApplicationController
   end
 
   def show
+    @reservation = @property.reservations.new
   end
 
   def listing
@@ -61,7 +62,7 @@ class PropertiesController < ApplicationController
   private
     def property_params
       params.require(:property).permit(:home_type, :guest_count, :bedroom_count, :bathroom_count, :room_type,
-        :price, :title, :description, :photos, :location, :has_tv, :has_kitchen, :has_heater, :has_aircon ,:has_wifi)
+        :price, :title, :description, :photos, :location, :has_tv, :has_kitchen, :has_heater, :has_aircon, :has_wifi)
     end
 
     def check_property_params

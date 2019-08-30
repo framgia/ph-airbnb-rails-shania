@@ -19,7 +19,7 @@
                 <% end %>
                 <span class="float-right">
                     <% if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
-                        <%= link_to "Forgot your password?", new_password_path(resource_name), class: "d-inline-block pull-right" %>
+                        <%= link_to "Forgot your password?", new_password_path(resource_name), class: "d-inline-block pull-right text-info" %>
                     <% end %>
                 </span>
             </div>
@@ -29,7 +29,7 @@
             </div>
             <hr>
             <% unless current_user %>
-                <%= link_to "Login with Facebook", user_facebook_omniauth_authorize_path, class: "btn btn-primary btn-block" %>
+                <%= link_to "Login with Facebook", user_facebook_omniauth_authorize_path, class: "btn btn-info btn-block" %>
             <% else %>  <%= current_user[:name] %>
                 <%= link_to "Logout", destroy_user_session_path, method: :delete %>
             <% end %>

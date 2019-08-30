@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_17_102216) do
+ActiveRecord::Schema.define(version: 2019_08_27_030939) do
 
   create_table "photos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "property_id"
@@ -43,6 +43,18 @@ ActiveRecord::Schema.define(version: 2019_08_17_102216) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_properties_on_user_id"
+  end
+
+  create_table "reservations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "property_id"
+    t.date "start_date"
+    t.date "end_date"
+    t.float "total_price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["property_id", "created_at"], name: "index_reservations_on_property_id_and_created_at"
+    t.index ["user_id", "created_at"], name: "index_reservations_on_user_id_and_created_at"
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

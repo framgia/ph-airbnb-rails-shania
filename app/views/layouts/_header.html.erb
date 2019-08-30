@@ -20,6 +20,8 @@
                             <div class="dropdown-menu" aria-labelledby="dropdown01">
                             <%= link_to "Manage Listing", properties_path(@property), class: "dropdown-item" %>
                             <%= link_to "List your Space", new_property_path, class: "dropdown-item" %>
+                            <%= link_to "Your Reservations", reservations_path, class: "dropdown-item" %>
+                            <%= link_to "Your Trips", trips_path, class: "dropdown-item" %>
                             <div class="dropdown-divider"></div>
                             <%= link_to "Edit Profile", edit_user_registration_path, class: "dropdown-item" %>
                             <%= link_to "Log out", destroy_user_session_path, class:"dropdown-item", :method => :delete %>
