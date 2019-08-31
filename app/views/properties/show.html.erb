@@ -113,6 +113,50 @@
                     </a>
                 </div>
             </div>
+            <hr />
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="row"><%= @guest_reviews.count %> Review(s)<div id="rating-form" class="ml-4"></div></h3>
+                    <% @guest_reviews.each do |review| %>
+                        <div class="row mt-4">
+                            <div class="col-md-3 text-center">
+                                <span class="rounded-circle">
+                                    <%= profile_picture(review.user)%>
+                                </span>
+                                <br>
+                                <strong><%= review.user.name %></strong>
+                            </div>
+                            <div class="col-md-9 media-body">
+                                <% if review.user == current_user %>
+                                    <%= link_to '<i class="fa fa-trash fa-2x text-info"></i>'.html_safe, reservation_review_path(review.reservation, review), method: :delete,
+                                        data: {confirm: "Are you sure want to delete this review?"}, remote: true,
+                                        class: "float-right" %>
+                                <% end %>
+                                <div id="rating-form-<%= review.id %>"></div>
+                                <small><%= review.created_at.strftime('%b %d, %Y') %></small>
+                                <p><%= review.comment %></p>
+                            </div>
+                        </div>
+                        <script>
+                            $('#rating-form-<%= review.id %>').raty({
+                                path: '/assets/',
+                                scoreName: 'review[rating]',
+                                number: 5,
+                                score: '<%= review.rating %>',
+                                readOnly: true
+                            });
+                        </script>
+                    <% end %>
+                    <script>
+                        $('#rating-form').raty({
+                            path: '/assets/',
+                            number: 5,
+                            score: '<%= @reviews.average(:rating) %>',
+                            readOnly: true
+                        });
+                    </script>
+                </div>
+            </div>
         </div> <!-- col 8 -->
         <div class="col-4">
             <div class="card">
@@ -226,8 +270,6 @@
         }); // start date
            
         $("#end_date").datepicker({
-            // console.log(new Date($('#start_date').datepicker('getDate')));
-            // minDate: new Date($('#start_date').datepicker('getDate')),
             minDate: 0,
             monthNamesShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct",
                 "Nov", "Dec"

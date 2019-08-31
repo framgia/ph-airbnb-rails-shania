@@ -2,6 +2,7 @@ class Property < ApplicationRecord
   belongs_to :user
   has_many :photos
   has_many :reservations
+  has_many :reviews, through: :reservations
 
   validates :home_type, presence: true
   validates :guest_count, presence: true

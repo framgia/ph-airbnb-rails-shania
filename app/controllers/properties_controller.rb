@@ -1,7 +1,7 @@
 class PropertiesController < ApplicationController
   before_action :check_property_params, only: [:edit, :update, :listing, :show,
     :pricing, :description, :photos, :amenities, :location]
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:show]
 
   def index
     @properties = current_user.properties
@@ -38,6 +38,14 @@ class PropertiesController < ApplicationController
 
   def show
     @reservation = @property.reservations.new
+    @reviews = @property.reviews
+    @guest_reviews = []
+
+    @reviews.each do |review|
+      if review.user != @property.user
+        @guest_reviews.push(review)
+      end
+    end 
   end
 
   def listing

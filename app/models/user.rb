@@ -2,7 +2,19 @@ class User < ApplicationRecord
   # Custom
   has_many :properties
   has_many :reservations
-  
+  has_many :reviews, through: :reservations
+
+  # For host to get info from guest
+  has_many :active_relationships, class_name:  "Relationship",
+                                  foreign_key: "guest_id",
+                                  dependent:   :destroy
+  has_many :passive_relationships, class_name:  "Relationship",
+                                  foreign_key: "host_id",
+                                  dependent:   :destroy
+  has_many :hosting, through: :active_relationships, source: :host
+  has_many :guests, through: :passive_relationships, source: :guest
+
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
@@ -26,5 +38,4 @@ class User < ApplicationRecord
       end # where
     end # if
   end
-
 end

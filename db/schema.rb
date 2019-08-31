@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_27_030939) do
+ActiveRecord::Schema.define(version: 2019_08_30_102907) do
 
   create_table "photos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "property_id"
@@ -45,6 +45,16 @@ ActiveRecord::Schema.define(version: 2019_08_27_030939) do
     t.index ["user_id"], name: "index_properties_on_user_id"
   end
 
+  create_table "relationships", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "guest_id"
+    t.integer "host_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["guest_id", "host_id"], name: "index_relationships_on_guest_id_and_host_id", unique: true
+    t.index ["guest_id"], name: "index_relationships_on_guest_id"
+    t.index ["host_id"], name: "index_relationships_on_host_id"
+  end
+
   create_table "reservations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "user_id"
     t.integer "property_id"
@@ -55,6 +65,19 @@ ActiveRecord::Schema.define(version: 2019_08_27_030939) do
     t.datetime "updated_at", null: false
     t.index ["property_id", "created_at"], name: "index_reservations_on_property_id_and_created_at"
     t.index ["user_id", "created_at"], name: "index_reservations_on_user_id_and_created_at"
+  end
+
+  create_table "reviews", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "property_id"
+    t.integer "reservation_id"
+    t.integer "rating"
+    t.text "comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["property_id", "created_at"], name: "index_reviews_on_property_id_and_created_at"
+    t.index ["reservation_id", "created_at"], name: "index_reviews_on_reservation_id_and_created_at"
+    t.index ["user_id", "created_at"], name: "index_reviews_on_user_id_and_created_at"
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

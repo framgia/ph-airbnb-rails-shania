@@ -5,8 +5,13 @@ Rails.application.routes.draw do
   get  'static_pages/home'
   get  'reservations', to: 'reservations#reservations', as: 'reservations'
   get  'trips', to: 'reservations#trips', as: 'trips'
+  get  'reviews', to: 'reviews#create', as: 'reviews'
 
-  resources :users
+  resources :users do
+    member do
+      get :hosting, :guests
+    end
+  end
 
   resources :properties do
     member do
@@ -21,4 +26,9 @@ Rails.application.routes.draw do
     resources :reservations, only: [:create]
   end
 
+  resources :reservations, only: [:create] do
+    resources :reviews, only: [:create, :destroy]
+  end
+
+  resources :relationships
 end
