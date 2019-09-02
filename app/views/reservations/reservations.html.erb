@@ -36,9 +36,11 @@
                                             <%= link_to reservation.user.name, reservation.user, class: "col-12" %>
                                         </div>
                                     </div> <!-- col-4 -->
-                                    <div class="col-3 mt-3">
-                                        <%= link_to "Review Guest", reviews_path, remote: true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window', class: "btn btn-info float-right" %>
-                                    </div>
+                                    <% if reservation.reviews.empty? %>
+                                        <div class="col-3 mt-3">
+                                            <%= link_to "Review Guest", reviews_path, remote: true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window', class: "btn btn-info float-right" %>
+                                        </div>
+                                    <% end %>
                                     <div id="modal-window" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
@@ -48,7 +50,7 @@
                                     </div>
                                 </div> <!-- card ROW -->
                                 <hr>
-                        <% end %>
+                            <% end %>
                         <% end %>
                     <% else %>
                         <div class="col-12 text-center">

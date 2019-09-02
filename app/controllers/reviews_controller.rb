@@ -4,8 +4,9 @@ class ReviewsController < ApplicationController
   def create
     @reservation = Reservation.find(params[:review][:reservation_id])
     @review = @reservation.reviews.build(review_params)
+ 
     if @review.save
-      redirect_to reservations_url(@reservation)
+      redirect_to reservations_url
     else
       flash[:danger] = 'Something is not right'
       render 'trips'

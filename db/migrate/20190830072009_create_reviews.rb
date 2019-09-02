@@ -4,7 +4,6 @@ class CreateReviews < ActiveRecord::Migration[5.2]
         t.integer :user_id, foreign_key: true
         t.integer :property_id, foreign_key: true
         t.integer :reservation_id, foreign_key: true
-        t.belongs_to :review_action, polymorphic: true
         t.integer :rating
         t.text    :comment
         
