@@ -30,6 +30,8 @@ class ReservationsController < ApplicationController
     @properties.each do |property|
       if property.reservations.any? 
         @count = @count+1
+      else 
+        @count = 0
       end
     end
   end

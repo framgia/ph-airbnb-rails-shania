@@ -151,7 +151,7 @@
                         $('#rating-form').raty({
                             path: '/assets/',
                             number: 5,
-                            score: '<%= @reviews.average(:rating) %>',
+                            score: '<%= @guest_review_average %>',
                             readOnly: true
                         });
                     </script>
