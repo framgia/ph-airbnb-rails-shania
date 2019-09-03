@@ -29,6 +29,4 @@ Rails.application.routes.draw do
   resources :reservations, only: [:create] do
     resources :reviews, only: [:create, :destroy]
   end
-
-  resources :relationships
 end
