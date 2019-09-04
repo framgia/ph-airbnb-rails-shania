@@ -1,6 +1,7 @@
 class Reservation < ApplicationRecord
   belongs_to :user
   belongs_to :property
+  has_many :reviews
 
   default_scope -> { order(start_date: :asc) }
 

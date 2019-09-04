@@ -35,8 +35,17 @@
                                         <%= link_to reservation.property.user.name, reservation.property.user, class: "col-12" %>
                                     </div>
                                 </div> <!-- col-4 -->
-                                <div class="col-3 mt-3">
-                                    <%= link_to "Review Host", "#", class: "btn btn-info float-right" %>
+                                <% if !reservation.reviews.where(user_id: current_user.id).any? %>
+                                    <div class="col-3 mt-3">
+                                        <%= link_to "Review Host", reviews_path, remote: true, 'data-toggle' =>  "modal", 'data-target' => "#modal-window-#{reservation.id}", class: "btn btn-info float-right" %>
+                                    </div>
+                                <% end %>
+                                <div id="modal-window-<%= reservation.id %>" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <%= render 'reviews/review_host', reservation: reservation %>
+                                        </div>
+                                    </div>
                                 </div>
                             </div> <!-- card ROW -->
                             <hr>

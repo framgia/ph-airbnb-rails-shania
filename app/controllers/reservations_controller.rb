@@ -25,15 +25,20 @@ class ReservationsController < ApplicationController
 
   def reservations
     @properties = current_user.properties
+    
     @count = 0
     @properties.each do |property|
       if property.reservations.any? 
         @count = @count+1
+      else 
+        @count = 0
       end
     end
   end
 
   def trips
     @properties = current_user.properties
+    @reservation = Reservation.find_by(id: params[:id])
+    @review = Review.find_by(id: params[:id])
   end
 end
