@@ -1,6 +1,6 @@
 <% provide(:title, "Home") %>
 <div class="container mt-4">
-    <div class="row">
+    <div class="row mb-4">
         <div class="col-md-7 banner">
             <h1>
                 <span class="app-brand">PokeHost</span>
@@ -8,4 +8,44 @@
             </h1>
         </div>
     </div>
+    <%= search_form_for @search, url: search_path, html: { method: :get } do |f| %>
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <%= text_field_tag :location, params[:location], placeholder: "Where are you going?", class: "form-control mr-sm-2" , required: true %>
+            </div>
+            <div class="col-md-3">
+                <%= text_field_tag :start_date, params[:start_date], placeholder: "Start date", autocomplete: "off", class: "form-control" %>
+            </div>
+            <div class="col-md-3">
+                <%= text_field_tag :end_date, params[:end_date], placeholder: "End date", autocomplete: "off", class: "form-control" %>
+            </div>
+            <div class="col-md-12 mt-4 text-center">
+                <%= f.submit "Search", class: "btn btn-info" %>
+            </div>
+        </div>
+    <% end %>
 </div>
+<script type="text/javascript">
+    $(function() {
+        $("#start_date").datepicker({
+            minDate: 0,
+            monthNamesShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct",
+                "Nov", "Dec"
+            ],
+            changeMonth: true,
+            dateFormat: 'mm/dd/yy',
+            readOnly: true
+        }); // start date
+        
+        $("#end_date").datepicker({
+            minDate: 0,
+            monthNamesShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct",
+                "Nov", "Dec"
+            ],
+            changeMonth: true,
+            dateFormat: 'mm/dd/yy',
+            readOnly: true
+        }); // end date
+
+    }); // function
+</script>

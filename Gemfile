@@ -59,6 +59,10 @@ gem 'aws-sdk', '~> 3'
 # Calendar
 gem 'jquery-ui-rails'
 
+# Search
+gem 'ransack'
+gem 'rails-jquery-autocomplete', github: 'lingceng/rails-jquery-autocomplete'
+
 group :development, :test do
   # Call 'byebug' anywhere ins the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

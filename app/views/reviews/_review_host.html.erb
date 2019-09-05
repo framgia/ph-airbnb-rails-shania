@@ -11,21 +11,21 @@
             <%= f.hidden_field :property_id, value: reservation.property.id %>
             <%= f.hidden_field :reservation_id, value: reservation.id %>
             <div class="text-center">
-                <div id="rating-form"></div> <!-- rating form -->
+                <div id="rating-form-<%= reservation.id %>"></div> <!-- rating form -->
                 <%= f.text_area :comment, placeholder: "Tell us about your experience!", required: true, class: "form-control mt-4", rows: "3" %>
 
                 <%= f.submit "Add Review", class: "btn btn-info mt-4" %>
             </div> <!-- text center -->
+            <script>
+                $('#rating-form-<%= reservation.id %>').raty({
+                    path: '/assets/',
+                    scoreName: 'review[rating]',
+                    number: 5,
+                    score: 1
+                });
+            </script>
         <% end %>
     </div>
 </div>
 
 <%# Star %>
-<script>
-    $('#rating-form').raty({
-        path: '/assets/',
-        scoreName: 'review[rating]',
-        number: 5,
-        score: 1
-    });
-</script>

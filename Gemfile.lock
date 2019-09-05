@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/lingceng/rails-jquery-autocomplete.git
+  revision: 2a613e72ccd1e6cfc723444a57373409027c0f25
+  specs:
+    rails-jquery-autocomplete (1.0.3)
+      rails (>= 3.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -924,6 +931,8 @@ GEM
       mime-types
       mimemagic (~> 0.3.0)
       terrapin (~> 0.6.0)
+    polyamorous (2.3.0)
+      activerecord (>= 5.0)
     popper_js (1.14.5)
     public_suffix (3.1.1)
     puma (3.12.1)
@@ -955,6 +964,12 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.19.0, < 2.0)
     rake (12.3.3)
+    ransack (2.3.0)
+      actionpack (>= 5.0)
+      activerecord (>= 5.0)
+      activesupport (>= 5.0)
+      i18n
+      polyamorous (= 2.3.0)
     rb-fsevent (0.10.3)
     rb-inotify (0.10.0)
       ffi (~> 1.0)
@@ -1048,7 +1063,9 @@ DEPENDENCIES
   paperclip (~> 6.0.0)
   puma (~> 3.11)
   rails (~> 5.2.3)
+  rails-jquery-autocomplete!
   railties (~> 5.2, >= 5.2.3)
+  ransack
   rmagick (~> 2.15, >= 2.15.4)
   sass-rails
   selenium-webdriver

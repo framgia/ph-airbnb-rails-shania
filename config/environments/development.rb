@@ -27,8 +27,8 @@ Rails.application.configure do
     }
   }
 
-  # Paperclip
-  # Paperclip.options[:command_path] = "/usr/local/bin/"
+  # Rails Web Console
+  config.web_console.whitelisted_ips = %w[127.0.0.1 10.0.0.0/8 172.16.0.0/12 192.168.0.0/16]
 
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development
