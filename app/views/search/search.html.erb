@@ -12,7 +12,9 @@
                     <div class="row">
                         <div class="col-lg-8">
                             <div class="form-group">
-                                <input type="range" class="form-control-range" id="formControlRange">
+                                <div id="slider"></div>
+                                <%= f.hidden_field :price %>
+                                <%= f.hidden_field :price %>
                             </div>
                         </div>
                         <div class="col-lg-4">
@@ -49,13 +51,13 @@
                 <div class="col-lg-12 mt-4">
                     <div class="row">
                         <div class="form-check col-lg-4">
-                            <%= check_box_tag 'q[room_type_eq_any][]', 'Entire' %> Entire
+                            <%= check_box_tag 'q[room_type_eq_matches][]', 'Entire' %> Entire
                         </div>
                         <div class="form-check col-lg-4">
-                            <%= check_box_tag 'q[room_type_eq_any][]', 'Private' %> Private
+                            <%= check_box_tag 'q[room_type_eq_matches][]', 'Private' %> Private
                         </div>
                         <div class="form-check col-lg-4">
-                            <%= check_box_tag 'q[room_type_eq_any][]', 'Shared' %> Shared
+                            <%= check_box_tag 'q[room_type_eq_matches][]', 'Shared' %> Shared
                         </div>
                     </div> <!-- checkbox -->
                 </div>
@@ -64,15 +66,15 @@
                     <div class="row">
                         <div class="col-lg-4 form-group">
                             <label class="text-dark">Accomodation</label>
-                            <%= f.select :guest_count_eq, [["1","1"],["2","2"],["3","3"],["4+","4+"]], class: "form-control", prompt: "Select", id: "guest_count" %>
+                            <%= f.select :guest_count_matches, [["1","1"],["2","2"],["3","3"],["4+","4+"]], prompt: "Select", class: "form-control"  %>
                         </div>
                         <div class="col-lg-4 form-group">
                             <label class="text-dark">Bedroom Count</label>
-                            <%= f.select :bedroom_count_eq, [["1","1"],["2","2"],["3","3"],["4+","4+"]], class: "form-control", prompt: "Select" %>
+                            <%= f.select :bedroom_count_gteq, [["1", "1"], ["2", "2"], ["3", "3"], ["4+", "4+"]], id: "bedroom_count", prompt: "Select...", class: "form-control" %>
                         </div>
                         <div class="col-lg-4 form-group">
                             <label class="text-dark">Bathroom Count</label>
-                            <%= f.select :bathroom_count_eq, [["1","1"],["2","2"],["3","3"],["4+","4+"]], class: "form-control", prompt: "Select" %>
+                            <%= f.select :bathroom_count_eq, [["1","1"],["2","2"],["3","3"],["4+","4+"]], prompt: "Select", class: "form-control"  %>
                         </div>
                     </div>
                 </div>
@@ -116,7 +118,25 @@
         <!-- Google Map -->
     </div> 
 </div>
+
+<script src="//code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
 <script class="text/javascript">
+    $(document).ready(function() {
+        var slider = $("#slider").slider({
+            range: true,
+            min: 200,
+            max: 5000,
+            values: [1000, 5000],
+            slide: function(event, ui) {
+                $("#minprice").val(ui.values[0]);
+                $("#maxprice").val(ui.values[1]);
+            }
+        });
+        $("#minprice").val(slider.slider("values")[0]);
+        $("#maxprice").val(slider.slider("values")[1]);
+    });
+
     $(function() {
         $("#start_date").datepicker({
             minDate: 0,

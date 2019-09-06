@@ -10,7 +10,7 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery3
+//= require jquery2
 //= require popper
 //= require bootstrap
 //= require rails-ujs
@@ -18,7 +18,9 @@
 //= require turbolinks
 //= require_tree .
 //= require toastr
-//= require jquery-ui/widgets/datepicker
+//= require jquery-ui/datepicker
+//= require jquery-ui/autocomplete
+//= require autocomplete-rails
 
 // Carousel
 $(document).on('turbolinks:load', function(){

@@ -1,5 +1,11 @@
 @import "bootstrap";
 @import "font-awesome";
+@import "jquery-ui";
+
+/* Search Autocomplete */
+.ui-autocomplete {
+  z-index: 2000 !important;
+}
 
 body {
   padding-top: 5rem;
@@ -102,12 +108,12 @@ input[type="file"] {
   display: none;
 }
 
-/* Form Group - Select */
+/* Form Group - Selecimportant/
 .form-group select {
   width: 100%;
   color: #565a5c;
-  background-color: white;
-  border: 1px solid black;
+  background-color: wimportante;
+  border: 1px solid bimportantk;
   border-radius: 2px;
   padding: 10px;
 }

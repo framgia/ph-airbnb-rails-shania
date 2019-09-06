@@ -2,6 +2,7 @@ class PropertiesController < ApplicationController
   before_action :check_property_params, only: [:edit, :update, :listing, :show,
     :pricing, :description, :photos, :amenities, :location]
   before_action :authenticate_user!, except: [:show]
+  autocomplete :property, :location, full: true, where: { complete: true }, unique: true
 
   def index
     @properties = current_user.properties
@@ -13,10 +14,6 @@ class PropertiesController < ApplicationController
     @search.build_condition
   end
 
-  # def search
-  #   search_index
-  #   render 'search'
-  # end
 
   def new
     @property = current_user.properties.build

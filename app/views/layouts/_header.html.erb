@@ -6,9 +6,9 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="form-inline mt-2 mt-md-0">
-                    <%#= search_form_for @search, url: search_path, :method => :get do |f| %>
-                        <%#= f.text_field :location_cont, placeholder: "Where are you going?", class: "form-control mr-sm-2", required: true %>
-                    <%# end %>
+                    <%= search_form_for @search, url: search_path, :method => :get do |f| %>
+                        <%= text_field_tag :location, params[:location], placeholder: "Where are you going?", class: "form-control mr-sm-2" , required: true, data: { autocomplete: autocomplete_property_location_properties_path } %>
+                    <% end %>
                 </div>
                 <ul class="navbar-nav ml-auto">
                     <% if user_signed_in? %>

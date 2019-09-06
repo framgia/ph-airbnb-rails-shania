@@ -22,13 +22,9 @@ Rails.application.routes.draw do
       get 'photos'
       get 'amenities'
       get 'location'
-      # get 'search'
+      
     end
-
-    # collection do
-    #   # match 'search' => 'properties#search', via: [:get, :post], as: :search
-    # end
-    
+    get :autocomplete_property_location, on: :collection
     resources :photos, only: [:create, :destroy]
     resources :reservations, only: [:create]
   end
