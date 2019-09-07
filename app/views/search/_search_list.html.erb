@@ -1,35 +1,33 @@
 <% @results.each do |property| %>
-    <%# if property.complete %>
-        <div class="col-4">
-            <div class="card mt-2 mb-4">
-                <div class="card-header preview">
-                    <% if property.photos.any? %>
-                        <%= image_tag property.photos.first.image.url(:original), class: "full-image" %>
-                    <% else %>
-                        <%= image_tag 'nophoto.png', style: 'height:100px;width:110px;', class: "img-thumbnail" %>
-                    <% end %>
-                </div>
-                <div class="card-body">
-                    <h5>
-                        <%= link_to property.title, property_path(property) %>
-                    </h5>
-                    <p class="text-muted">
-                        $ <%= property.price %> - <%= property.home_type %> - <%= property.bedroom_count %>
-                    </p>
-                    <p>
-                        <div id="rating-form-<%= property.id %>"></div>
-                        <%= property.guest_reviews.count %> Reviews
-                    </p>
-                </div>
+    <div class="col-4">
+        <div class="card mt-2 mb-4">
+            <div class="card-header preview">
+                <% if property.photos.any? %>
+                    <%= image_tag property.photos.first.image.url(:original), class: "full-image" %>
+                <% else %>
+                    <%= image_tag 'nophoto.png', style: 'height:100px;width:110px;', class: "img-thumbnail" %>
+                <% end %>
+            </div>
+            <div class="card-body">
+                <h5>
+                    <%= link_to property.title, property_path(property) %>
+                </h5>
+                <p class="text-muted">
+                    $ <%= property.price %> - <%= property.home_type %> - <%= property.bedroom_count %>
+                </p>
+                <p>
+                    <div id="rating-form-<%= property.id %>"></div>
+                    <%= property.guest_reviews.count %> Reviews
+                </p>
             </div>
         </div>
-        <script>
-            $('#rating-form-<%= property.id %>').raty({
-                path: '/assets/',
-                number: 5,
-                score: '<%= property.guest_review_average %>',
-                readOnly: true
-            });
-        </script>
-    <%# end %> <!-- if property.complete -->
+    </div>
+    <script>
+        $('#rating-form-<%= property.id %>').raty({
+            path: '/assets/',
+            number: 5,
+            score: '<%= property.guest_review_average %>',
+            readOnly: true
+        });
+    </script>
 <% end %>
