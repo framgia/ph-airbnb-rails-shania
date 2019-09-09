@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
 
   def set_global_search_variable
     @search = Property.ransack(params[:q])
+    @results = @search.result
   end
 
   protected
