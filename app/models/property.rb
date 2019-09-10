@@ -4,6 +4,9 @@ class Property < ApplicationRecord
   has_many :reservations
   has_many :reviews, through: :reservations
 
+  geocoded_by :location
+  after_validation :geocode, if: ->(obj){ obj.location.present? and obj.location_changed? }
+
   validates :home_type, presence: true
   validates :guest_count, presence: true
   validates :bedroom_count, presence: true

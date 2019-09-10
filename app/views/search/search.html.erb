@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-md-8">
+    <div id="left">
         <div class="row mt-4">
             <div class="col-lg-12 text-center">
                 <button class="btn btn-info btn-lg dropdown-toggle" data-toggle="collapse" href="#filter" role="button">More Filters<span class="caret"></span></button>
@@ -108,17 +108,18 @@
         <% end %> <!-- search -->
     </div>
     <div class="row">
-        <div class="card-deck mt-4" id="search-container">
-            <%= render 'search_list' %>
+        <div class="card-deck mt-4" id="search">
+            <%= render partial: 'search_list' %>
         </div>
     </div>
-    <div class="col-md-4">
+    </div>
+    <div id="right">
+        <div id="big-map"></div>
         <!-- Google Map -->
     </div> 
 </div>
 
 <script src="//code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-
 <script class="text/javascript">
     $(document).ready(function() {
         var slider = $("#slider").slider({
@@ -134,7 +135,23 @@
         $("#minprice").val(slider.slider("values")[0]);
         $("#maxprice").val(slider.slider("values")[1]);
     });
+    
+    function initMap() {
+        var myCoords = new google.maps.LatLng(<%= @properties.first.latitude %>, <%= @properties.first.longitude %>);
+        var mapOptions = {
+        center: myCoords,
+        zoom: 14
+        };
+        var map = new google.maps.Map(document.getElementById('big-map'), mapOptions);
+        var marker = new google.maps.Marker({
+            position: myCoords,
+            map: map
+        });
+    }
+    google.maps.event.addDomListener(window, 'load', initMap);
+</script>
 
+<script class="text/javascript">
     $(function() {
         $("#start_date").datepicker({
             minDate: 0,

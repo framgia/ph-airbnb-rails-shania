@@ -40,6 +40,8 @@ ActiveRecord::Schema.define(version: 2019_08_30_072009) do
     t.boolean "has_kitchen", default: false
     t.boolean "has_wifi", default: false
     t.boolean "complete", default: false
+    t.float "latitude"
+    t.float "longitude"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_properties_on_user_id"
