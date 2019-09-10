@@ -1,6 +1,6 @@
 <% provide(:title, "Home") %>
-<div class="container mt-4">
-    <div class="row">
+<div class="container mt-5">
+    <div class="row mb-4">
         <div class="col-md-7 banner">
             <h1>
                 <span class="app-brand">PokeHost</span>
@@ -8,4 +8,113 @@
             </h1>
         </div>
     </div>
+    <%= search_form_for @search, url: search_path, html: { method: :get } do |f| %>
+        <div class="row mt-5">
+            <div class="col-md-6">
+                <%= text_field_tag :location, params[:location], placeholder: "Where are you going?", class: "form-control mr-sm-2 p-4" , required: true, data: { autocomplete: autocomplete_property_location_properties_path } %>
+            </div>
+            <div class="col-md-3">
+                <%= text_field_tag :start_date, params[:start_date], placeholder: "Start date", autocomplete: "off", class: "form-control p-4" %>
+            </div>
+            <div class="col-md-3">
+                <%= text_field_tag :end_date, params[:end_date], placeholder: "End date", autocomplete: "off", class: "form-control p-4" %>
+            </div>
+            <div class="col-md-12 mt-4 mb-5 text-center">
+                <%= f.submit "Search", class: "btn btn-info btn-lg" %>
+            </div>
+        </div>
+    <% end %>
+    <hr class="mt-4 mb-5">
+    <div class = "container mt-4">
+        <div class="mt-4 mb-5">
+            <h3><p>Homes</p></h3>
+        </div>
+        <div class = "row mt-4 mb-5">
+            <% if @properties.any? %>
+                <% @properties.each do |property| %>
+                    <% if property.complete %>
+                        <div class="col-4 mb-4">
+                            <div class="card">
+                                <div class="card-header preview">
+                                    <% if property.photos.any? %>
+                                        <%= image_tag property.photos.first.image.url(:original), class: "full-image" %>
+                                    <% else %>
+                                            <%= image_tag 'nophoto.png', style: 'height:100px;width:110px;', class: "img-thumbnail" %>
+                                    <% end %>
+                                </div>
+                                <div class="card-body">
+                                    <h5>
+                                        <%= link_to property.title, property_path(property) %>
+                                    </h5>
+                                    <p class="text-muted">
+                                        $ <%= property.price %> - <%= property.home_type %> - <%= property.bedroom_count %>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    <% end %><!-- if property.complete -->
+                <% end %><!-- property.each do -->
+            <% else %>
+                <div class="col-12 text-center">
+                    <p><i class="fa fa-folder-open" style="font-size: 5rem;"></i></p>
+                </div>
+                <div class="col-12 text-center">
+                    <p>The page you are looking for is empty</p>
+                    <%= link_to "List your own space now", new_property_path, class: "text-info" %>
+                </div>
+            <% end %> <!-- if property.any -->
+        </div> <!-- row -->
+    </div> <!-- HOME container -->
+    <hr class="mt-4 mb-5">
+    <div class = "container mt-4">
+        <div class="mt-4 mb-5">
+            <h3><p>Cities</p></h3>
+        </div>
+        <div class="row mt-4 mb-5">
+            <div class="col-md-3 col-sm-12">
+                <%= link_to 'http://localhost:3002/search?utf8=%E2%9C%93&location=miami' do %>
+                    <div class="discovery-card" style="background-image: url(<%= image_path('MI.jpg') %>);"></div>
+                <% end %>
+            </div>
+            <div class="col-md-3 col-sm-12">
+                <%= link_to 'http://localhost:3002/search?utf8=%E2%9C%93&location=los+angeles' do %>
+                    <div class="discovery-card" style="background-image: url(<%= image_path('LA.jpg') %>);"></div>
+                <% end %>
+            </div>
+            <div class="col-md-3 col-sm-12">
+                <%= link_to 'http://localhost:3002/search?utf8=%E2%9C%93&location=london' do %>
+                    <div class="discovery-card" style="background-image: url(<%= image_path('LD.jpg') %>);"></div>
+                <% end %>
+            </div>
+            <div class="col-md-3 col-sm-12">
+                <%= link_to 'http://localhost:3002/search?utf8=%E2%9C%93&location=paris' do %>
+                    <div class="discovery-card" style="background-image: url(<%= image_path('PR.jpg') %>);"></div>
+                <% end %>
+            </div>
+        </div>
+    </div>  <!-- CITIES container -->
 </div>
+<script type="text/javascript">
+    $(function() {
+        $("#start_date").datepicker({
+            minDate: 0,
+            monthNamesShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct",
+                "Nov", "Dec"
+            ],
+            changeMonth: true,
+            dateFormat: 'mm/dd/yy',
+            readOnly: true
+        }); // start date
+        
+        $("#end_date").datepicker({
+            minDate: 0,
+            monthNamesShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct",
+                "Nov", "Dec"
+            ],
+            changeMonth: true,
+            dateFormat: 'mm/dd/yy',
+            readOnly: true
+        }); // end date
+
+    }); // function
+</script>

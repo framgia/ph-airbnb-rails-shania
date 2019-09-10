@@ -1,8 +1,26 @@
 @import "bootstrap";
 @import "font-awesome";
+@import "jquery-ui";
+
+/* Search Autocomplete */
+.ui-autocomplete {
+  z-index: 2000 !important;
+}
 
 body {
   padding-top: 5rem;
+}
+
+/* Home */
+.mt-5, .my-5 {
+  margin-top: 4rem !important;
+}
+
+.discovery-card {
+  background-size: cover;
+  background-position: center;
+  height: 326px;
+  width: 100%;
 }
 
 /* Profile Picture */
@@ -101,17 +119,6 @@ h2,
 input[type="file"] {
   display: none;
 }
-
-/* Form Group - Select */
-.form-group select {
-  width: 100%;
-  color: #565a5c;
-  background-color: white;
-  border: 1px solid black;
-  border-radius: 2px;
-  padding: 10px;
-}
-
 
 /* Listing Page */
 

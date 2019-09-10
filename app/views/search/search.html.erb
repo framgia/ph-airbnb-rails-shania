@@ -1,0 +1,159 @@
+<div class="row">
+    <div class="col-md-8">
+        <div class="row mt-4">
+            <div class="col-lg-12 text-center">
+                <button class="btn btn-info btn-lg dropdown-toggle" data-toggle="collapse" href="#filter" role="button">More Filters<span class="caret"></span></button>
+            </div>
+        </div>
+        <%= search_form_for @search, url: search_path, remote: true do |f| %>
+            <%= f.hidden_field :location_cont, value: @location %> <!-- makes the location stay -->
+            <div class="row mt-4 collapse" id="filter">
+                <div class="col-lg-12 mt-4">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="form-group">
+                                <div id="slider"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="minprice">Min Price</label>
+                                        <%= f.text_field :price_gteq, class: "form-control", id: "minprice" %>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="maxprice">Max Price</label>
+                                        <%= f.text_field :price_lteq, class: "form-control", id: "maxprice" %>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr class="col-lg-12" />
+            <div class="row mt-4">
+                <div class="col-lg-12 mt-4">
+                    <div class="row">
+                        <div class="col-6">
+                            <%= text_field_tag :start_date, params[:start_date], placeholder: "Start date", autocomplete: "off", class: "form-control" %>
+                        </div>
+                        <div class="col-6">
+                            <%= text_field_tag :end_date, params[:end_date], placeholder: "End date", autocomplete: "off", class: "form-control" %>
+                        </div>
+                    </div>
+                </div> <!-- calendar -->
+                <hr class="col-lg-12" />
+                <div class="col-lg-12 mt-4">
+                    <div class="row">
+                        <div class="form-check col-lg-4">
+                            <%= check_box_tag 'q[room_type_eq_any][]', 'Entire' %> Entire
+                        </div>
+                        <div class="form-check col-lg-4">
+                            <%= check_box_tag 'q[room_type_eq_any][]', 'Private' %> Private
+                        </div>
+                        <div class="form-check col-lg-4">
+                            <%= check_box_tag 'q[room_type_eq_any][]', 'Shared' %> Shared
+                        </div>
+                    </div> <!-- checkbox -->
+                </div>
+                <hr class="col-lg-12" />
+                <div class="col-lg-12 mt-4">
+                    <div class="row">
+                        <div class="col-lg-4 form-group">
+                            <label class="text-dark">Accomodation</label>
+                            <%= f.select :guest_count_gteq, [["1","1"],["2","2"],["3","3"],["4+","4+"]], id: "guest_count", prompt: "Select", class: "form-control"  %>
+                        </div>
+                        <div class="col-lg-4 form-group">
+                            <label class="text-dark">Bedroom Count</label>
+                            <%= f.select :bedroom_count_gteq, [["1", "1"], ["2", "2"], ["3", "3"], ["4+", "4+"]], id: "bedroom_count", prompt: "Select", class: "form-control" %>
+                        </div>
+                        <div class="col-lg-4 form-group">
+                            <label class="text-dark">Bathroom Count</label>
+                            <%= f.select :bathroom_count_gteq, [["1","1"],["2","2"],["3","3"],["4+","4+"]], id: "bathroom_count", prompt: "Select", class: "form-control"  %>
+                        </div>
+                    </div>
+                </div>
+                <hr class="col-lg-12" />
+                <div class="col-lg-12 mt-4">
+                    <div class="row">
+                        <div class="form-check col-lg-4">
+                            <%= f.check_box :has_tv_true %> TV
+                        </div>
+                        <div class="form-check col-lg-4">
+                            <%= f.check_box :has_kitchen_true %> Kitchen
+                        </div>
+                        <div class="form-check col-lg-4">
+                            <%= f.check_box :has_wifi_true %> Internet
+                        </div>
+                    </div> <!-- checkbox -->
+                </div>
+                <div class="col-lg-12 mt-4">
+                    <div class="row">
+                        <div class="form-check col-lg-4">
+                            <%= f.check_box :has_heater_true %> Heater
+                        </div>
+                        <div class="form-check col-lg-4">
+                            <%= f.check_box :has_aircon_true %> Air Conditioning
+                        </div>
+                    </div> <!-- checkbox -->
+                </div>
+                <hr class="col-lg-12" />
+                <div class="col-md-12 mt-2 text-center">
+                    <%= f.submit "Search", class: "btn btn-info btn-lg" %>
+                </div>
+            </div> <!-- start for more filter -->
+        <% end %> <!-- search -->
+    </div>
+    <div class="row">
+        <div class="card-deck mt-4" id="search-container">
+            <%= render 'search_list' %>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <!-- Google Map -->
+    </div> 
+</div>
+
+<script src="//code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
+<script class="text/javascript">
+    $(document).ready(function() {
+        var slider = $("#slider").slider({
+            range: true,
+            min: 200,
+            max: 5000,
+            values: [1000, 5000],
+            slide: function(event, ui) {
+                $("#minprice").val(ui.values[0]);
+                $("#maxprice").val(ui.values[1]);
+            }
+        });
+        $("#minprice").val(slider.slider("values")[0]);
+        $("#maxprice").val(slider.slider("values")[1]);
+    });
+
+    $(function() {
+        $("#start_date").datepicker({
+            minDate: 0,
+            monthNamesShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct",
+                "Nov", "Dec"
+            ],
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: 'mm/dd/yy'
+         }); // start date
+
+         $("#end_date").datepicker({
+            minDate: 0,
+            monthNamesShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct",
+                "Nov", "Dec"
+            ],
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: 'mm/dd/yy'
+        }); // start date
+    }); // function
+</script>

@@ -5,9 +5,11 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
-                <form class="form-inline mt-2 mt-md-0">
-                    <input class="form-control mr-sm-2" type="text" placeholder="Where are you going?" aria-label="Search">
-                </form>
+                <div class="form-inline mt-2 mt-md-0">
+                    <%= search_form_for @search, url: search_path, :method => :get do |f| %>
+                        <%= text_field_tag :location, params[:location], placeholder: "Where are you going?", class: "form-control mr-sm-2" , required: true, data: { autocomplete: autocomplete_property_location_properties_path } %>
+                    <% end %>
+                </div>
                 <ul class="navbar-nav ml-auto">
                     <% if user_signed_in? %>
                         <li>
@@ -18,13 +20,13 @@
                                 <%= current_user.name %> <b class="caret"></b>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="dropdown01">
-                            <%= link_to "Manage Listing", properties_path(@property), class: "dropdown-item" %>
-                            <%= link_to "List your Space", new_property_path, class: "dropdown-item" %>
-                            <%= link_to "Your Reservations", reservations_path, class: "dropdown-item" %>
-                            <%= link_to "Your Trips", trips_path, class: "dropdown-item" %>
-                            <div class="dropdown-divider"></div>
-                            <%= link_to "Edit Profile", edit_user_registration_path, class: "dropdown-item" %>
-                            <%= link_to "Log out", destroy_user_session_path, class:"dropdown-item", :method => :delete %>
+                                <%= link_to "Manage Listing", properties_path(@property), class: "dropdown-item" %>
+                                <%= link_to "List your Space", new_property_path, class: "dropdown-item" %>
+                                <%= link_to "Your Reservations", reservations_path, class: "dropdown-item" %>
+                                <%= link_to "Your Trips", trips_path, class: "dropdown-item" %>
+                                <div class="dropdown-divider"></div>
+                                <%= link_to "Edit Profile", edit_user_registration_path, class: "dropdown-item" %>
+                                <%= link_to "Log out", destroy_user_session_path, class:"dropdown-item", :method => :delete %>
                             </div>
                         </li>
                     <% else %>

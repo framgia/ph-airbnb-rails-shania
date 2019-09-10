@@ -2,10 +2,18 @@ class PropertiesController < ApplicationController
   before_action :check_property_params, only: [:edit, :update, :listing, :show,
     :pricing, :description, :photos, :amenities, :location]
   before_action :authenticate_user!, except: [:show]
+  autocomplete :property, :location, full: true, where: { complete: true }, unique: true
 
   def index
     @properties = current_user.properties
   end
+
+  def search_index
+    @search = Property.ransack(params[:q])
+    @properties = @search.result
+    @search.build_condition
+  end
+
 
   def new
     @property = current_user.properties.build
@@ -78,7 +86,8 @@ class PropertiesController < ApplicationController
   private
     def property_params
       params.require(:property).permit(:home_type, :guest_count, :bedroom_count, :bathroom_count, :room_type,
-        :price, :title, :description, :photos, :location, :has_tv, :has_kitchen, :has_heater, :has_aircon, :has_wifi)
+        :price, :title, :description, :photos, :location,
+        :has_tv, :has_kitchen, :has_heater, :has_aircon, :has_wifi)
     end
 
     def check_property_params
