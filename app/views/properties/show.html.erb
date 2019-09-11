@@ -231,7 +231,7 @@
 
 <script>
     function initMap() {
-        var myCoords = new google.maps.LatLng(<%= @property.latitude %>, <%= @property.longitude %>);
+        var myCoords = new google.maps.LatLng("<%= @property.latitude %>", "<%= @property.longitude %>");
         var mapOptions = {
         center: myCoords,
         zoom: 14
