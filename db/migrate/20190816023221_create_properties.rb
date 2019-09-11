@@ -17,6 +17,8 @@ class CreateProperties < ActiveRecord::Migration[5.2]
       t.boolean :has_kitchen, default: false
       t.boolean :has_wifi, default: false
       t.boolean :complete, default: false
+      t.float :latitude
+      t.float :longitude
 
       t.timestamps
     end

@@ -14,7 +14,6 @@ class PropertiesController < ApplicationController
     @search.build_condition
   end
 
-
   def new
     @property = current_user.properties.build
   end
@@ -47,6 +46,7 @@ class PropertiesController < ApplicationController
   def show
     @reservation = @property.reservations.new
     @reviews = @property.reviews
+    @locations = Property.near([@property.latitude, @property.longitude], 50, :order => :distance)
 
     @guest_reviews = []
     @guest_review_ratings = 0
@@ -87,7 +87,8 @@ class PropertiesController < ApplicationController
     def property_params
       params.require(:property).permit(:home_type, :guest_count, :bedroom_count, :bathroom_count, :room_type,
         :price, :title, :description, :photos, :location,
-        :has_tv, :has_kitchen, :has_heater, :has_aircon, :has_wifi)
+        :has_tv, :has_kitchen, :has_heater, :has_aircon, :has_wifi,
+        :latitude, :longtitude)
     end
 
     def check_property_params

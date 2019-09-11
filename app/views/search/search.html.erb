@@ -1,5 +1,5 @@
-<div class="row">
-    <div class="col-md-8">
+<div id="main">
+    <div id="left">
         <div class="row mt-4">
             <div class="col-lg-12 text-center">
                 <button class="btn btn-info btn-lg dropdown-toggle" data-toggle="collapse" href="#filter" role="button">More Filters<span class="caret"></span></button>
@@ -106,35 +106,90 @@
                 </div>
             </div> <!-- start for more filter -->
         <% end %> <!-- search -->
-    </div>
-    <div class="row">
-        <div class="card-deck mt-4" id="search-container">
-            <%= render 'search_list' %>
+    </div> <!-- LEFT -->
+    <% if @properties.any? %>
+        <div class="row">
+            <div class="card-deck mt-4" id="search">
+                <%= render partial: 'search_list' %>
+            </div>
+        </div> <!-- RESULTS -->
+    <% else %>
+        <div class="row mt-4">
+            <h4 class="text-muted mx-auto mt-4">No properties found</h4>
         </div>
-    </div>
-    <div class="col-md-4">
+    <% end %>
+    <div id="right">
+        <div id="big-map"></div>
         <!-- Google Map -->
     </div> 
 </div>
 
 <script src="//code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 
-<script class="text/javascript">
-    $(document).ready(function() {
-        var slider = $("#slider").slider({
-            range: true,
-            min: 200,
-            max: 5000,
-            values: [1000, 5000],
-            slide: function(event, ui) {
-                $("#minprice").val(ui.values[0]);
-                $("#maxprice").val(ui.values[1]);
-            }
+<% if @properties.any? %>
+    <script class="text/javascript">
+        $(document).ready(function() {
+            var slider = $("#slider").slider({
+                range: true,
+                min: 200,
+                max: 5000,
+                values: [1000, 5000],
+                slide: function(event, ui) {
+                    $("#minprice").val(ui.values[0]);
+                    $("#maxprice").val(ui.values[1]);
+                }
+            });
+            $("#minprice").val(slider.slider("values")[0]);
+            $("#maxprice").val(slider.slider("values")[1]);
         });
-        $("#minprice").val(slider.slider("values")[0]);
-        $("#maxprice").val(slider.slider("values")[1]);
-    });
+        function initMap() {
+            var myCoords = new google.maps.LatLng("<%= @properties.first.latitude %>", "<%= @properties.first.longitude %>");
+            var mapOptions = {
+            center: myCoords,
+            zoom: 14
+            };
+            var map = new google.maps.Map(document.getElementById('big-map'), mapOptions);
+            var marker = new google.maps.Marker({
+                position: myCoords,
+                map: map
+            });
+        }
+        google.maps.event.addDomListener(window, 'load', initMap);
+    </script>
+<% else %>
+    <script class="text/javascript">
+        function initMap() {
+            geocoder = new google.maps.Geocoder();
+            var latlng = new google.maps.LatLng(10.315462, 123.890352);
 
+            var mapOptions = {
+            center: latlng,
+            zoom: 14
+            };
+
+            var map = new google.maps.Map(document.getElementById('big-map'), mapOptions);
+            var marker = new google.maps.Marker({
+                position: latlng,
+                map: map
+            });
+            
+            var address = "<%= @location %>";
+            geocoder.geocode( { 'address': address }, function(results, status) {
+                if (status == 'OK') {
+                    map.setCenter(results[0].geometry.location);
+                    var marker = new google.maps.Marker({
+                        map: map,
+                        position: results[0].geometry.location
+                    });
+                } else {
+                }
+            });
+        }
+        google.maps.event.addDomListener(window, 'load', initMap);
+    </script>
+<% end %>
+
+<script class="text/javascript">
     $(function() {
         $("#start_date").datepicker({
             minDate: 0,
