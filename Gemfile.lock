@@ -907,7 +907,6 @@ GEM
     multi_json (1.13.1)
     multi_xml (0.6.0)
     multipart-post (2.1.1)
-    mysql2 (0.5.2)
     nio4r (2.4.0)
     nokogiri (1.10.4)
       mini_portile2 (~> 2.4.0)
@@ -932,6 +931,7 @@ GEM
       mime-types
       mimemagic (~> 0.3.0)
       terrapin (~> 0.6.0)
+    pg (0.18.1)
     polyamorous (2.3.0)
       activerecord (>= 5.0)
     popper_js (1.14.5)
@@ -958,6 +958,11 @@ GEM
       nokogiri (>= 1.6)
     rails-html-sanitizer (1.2.0)
       loofah (~> 2.2, >= 2.2.2)
+    rails_12factor (0.0.3)
+      rails_serve_static_assets
+      rails_stdout_logging
+    rails_serve_static_assets (0.0.5)
+    rails_stdout_logging (0.0.5)
     railties (5.2.3)
       actionpack (= 5.2.3)
       activesupport (= 5.2.3)
@@ -1059,13 +1064,14 @@ DEPENDENCIES
   jquery-ui-rails
   listen (>= 3.0.5, < 3.2)
   mini_racer
-  mysql2 (>= 0.4.4, < 0.6.0)
   omniauth
   omniauth-facebook
   paperclip (~> 6.0.0)
+  pg (= 0.18.1)
   puma (~> 3.11)
   rails (~> 5.2.3)
   rails-jquery-autocomplete!
+  rails_12factor
   railties (~> 5.2, >= 5.2.3)
   ransack
   rmagick (~> 2.15, >= 2.15.4)
