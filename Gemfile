@@ -10,7 +10,7 @@ gem 'railties', '~> 5.2', '>= 5.2.3'
 gem 'sprockets-rails', :require => 'sprockets/railtie'
 gem 'bootstrap', '~> 4.3.1'
 # Use mysql as the database for Active Record
-# gem 'mysql2', '>= 0.4.4', '< 0.6.0'
+gem 'mysql2', '>= 0.4.4', '< 0.6.0'
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
 # Use SCSS for stylesheets
@@ -67,8 +67,8 @@ gem 'rails-jquery-autocomplete', github: 'lingceng/rails-jquery-autocomplete'
 gem 'geocoder'
 
 # Heroku Setup
-gem 'pg', '0.18.1', group: :production
-gem 'rails_12factor', group: :production
+# gem 'pg', '0.18.1', group: :production
+# gem 'rails_12factor', group: :production
 
 group :development, :test do
   # Call 'byebug' anywhere ins the code to stop execution and get a debugger console
